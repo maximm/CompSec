@@ -1,0 +1,6 @@
+<h1>Upload File</h1>
+<h2><%= @notice %>
+<%= form_tag({:action => "create"}, :multipart => true) do %>
+  <%= file_field(:file, "File") %>
+  <%= submit_tag("Upload") %>
+<% end %>
