@@ -1,0 +1,8 @@
+nyckelverktygsfel: java.io.IOException: Invalid keystore format
+java.io.IOException: Invalid keystore format
+	at sun.security.provider.JavaKeyStore.engineLoad(JavaKeyStore.java:633)
+	at sun.security.provider.JavaKeyStore$JKS.engineLoad(JavaKeyStore.java:38)
+	at java.security.KeyStore.load(KeyStore.java:1185)
+	at sun.security.tools.KeyTool.doCommands(KeyTool.java:620)
+	at sun.security.tools.KeyTool.run(KeyTool.java:172)
+	at sun.security.tools.KeyTool.main(KeyTool.java:166)
