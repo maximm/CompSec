@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class Filehandler < ActiveRecord::Base
+  
+  # Save the file to disk
   def self.save(file)
     filename = file['File'].original_filename
     
@@ -8,18 +10,20 @@ class Filehandler < ActiveRecord::Base
     return filename
   end
   
-  def self.approve(password)
-   
-    # Check that the password is correct
-    if password.empty?
-      return "Password can not be empty"
-    elsif !`keytool -list -v -keystore "compseckeystore" -storepass #{password} | grep -c 'Keystore was tampered with, or password was incorrect'`["2"].nil? then
+  # Run Keytool on the keystore
+  def self.run(password)
+    return data = `keytool -list -v -keystore "compseckeystore" -storepass #{password}`
+  end
+  
+  def self.approve(data)
+
+    if data.match("Keystore was tampered with, or password was incorrect") then
       return "The password was incorrect"
     end
 
     # Check if the certificate chain matches 2
-    if !`keytool -list -v -keystore "compseckeystore" -storepass #{password} | grep -c 'kedja: 2'`["1"].nil? then
-      return "Congratulations, your certifcate has the correct length of 2"
+    if data.match("Certificate chain length: 2") then
+      return "Congratulations, your certificate has the correct length of 2"
     else
       return "Sorry, your certificate chain does not contain the correct number of certificates"
     end

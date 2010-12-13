@@ -5,7 +5,10 @@ class UploadController < ApplicationController
   
   def create
     @filename = Filehandler.save(params[:file])
-    @cmd = Filehandler.approve(params[:password]['Password'])
+    response = Filehandler.run(params[:password]['Password'])
+    @HtmlResponse = response.gsub("\n", '<br>')
+    
+    @cmd = Filehandler.approve(response)
     Filehandler.cleanup
     @notice = @filename + ' was successfully uploaded'
   end
