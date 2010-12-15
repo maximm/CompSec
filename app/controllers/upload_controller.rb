@@ -4,12 +4,10 @@ class UploadController < ApplicationController
   end
   
   def create
-    @filename = Filehandler.save(params[:file])
-    response = Filehandler.run(params[:password]['Password'])
-    @HtmlResponse = response.gsub("\n", '<br>')
-    
-    @cmd = Filehandler.approve(response)
-    Filehandler.cleanup
-    @notice = @filename + ' was successfully uploaded'
+    file = Filehandler.new(params[:file], params[:password]['Password'])
+
+    @HtmlResponse = file.data.gsub("\n", '<br>')
+    @cmd = file.approve().gsub("\n", '<br>')
+    @notice = file.filename + ' was successfully uploaded'
   end
 end

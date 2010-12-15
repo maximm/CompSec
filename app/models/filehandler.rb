@@ -1,35 +1,41 @@
 # -*- coding: utf-8 -*-
 
-class Filehandler < ActiveRecord::Base
+class Filehandler
+  attr_accessor :data, :filename
   
-  # Save the file to disk
-  def self.save(file)
-    filename = file['File'].original_filename
-    
+  def initialize(file, password)
     File.open('compseckeystore', "wb") { |f| f.write(file['File'].read)}
-    return filename
+    
+    @filename = file['File'].original_filename   
+    @data = `keytool -list -v -keystore "compseckeystore" -storepass #{password}`
+    self.cleanup()
   end
   
-  # Run Keytool on the keystore
-  def self.run(password)
-    return data = `keytool -list -v -keystore "compseckeystore" -storepass #{password}`
-  end
-  
-  def self.approve(data)
+  def approve()
 
-    if data.match("Keystore was tampered with, or password was incorrect") then
-      return "The password was incorrect"
+    @ApprovedList = String.new
+    
+    # Check if password is correct
+    if @data.match("Keystore was tampered with, or password was incorrect") then
+      return "ERROR: The password was incorrect"
     end
 
     # Check if the certificate chain matches 2
-    if data.match("Certificate chain length: 2") then
-      return "Congratulations, your certificate has the correct length of 2"
+    if @data.match("Certificate chain length: 2") then
+      @ApprovedList += "OK: Your certificate has the correct length of 2\n"
     else
-      return "Sorry, your certificate chain does not contain the correct number of certificates"
+      @ApprovedList += "ERROR: Sorry, your certificate chain does not contain the correct number of certificates\n"
+    end
+    
+    # Check if keystore contains 2 entries
+    if @data.match("Your keystore contains 2 entries") then
+      @ApprovedList += "OK: Your keystore contains 2 entries\n"
+    else
+      @ApprovedList += "ERROR: Sorry, your keystore does not contain 2 entries\n"
     end
   end
   
-  def self.cleanup
+  def cleanup
     if File.exist?('compseckeystore') then
       File.delete('compseckeystore') 
     end
