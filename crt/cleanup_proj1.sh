@@ -1,0 +1,9 @@
+rm -f CA_key.pem
+rm -f client_key.pem
+rm -f CA.crt
+rm -f client.csr
+rm -f client.crt
+rm -f CA.srl
+rm -f compseckeystore
+rm -f gaga.csr
+rm -f gaga.crt
