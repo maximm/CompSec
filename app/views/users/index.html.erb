@@ -1,18 +1,17 @@
 <h1>Listing users</h1>
 
-<table>
+<table style="width:500px; text-align:left;">
   <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>STIL Identity</th>
+    <th>Date Created</th>
+    <th>Delete?</th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
     <td><%= user.name %></td>
+    <td><%= user.created_at %></td>
     <td><%= link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete %></td>
-
   </tr>
 <% end %>
 </table>
