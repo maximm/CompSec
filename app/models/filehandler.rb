@@ -8,7 +8,7 @@ class Filehandler
       password = ".EMPTY."
     end
     
-    #File.open('compseckeystore', "wb") { |f| f.write(file['File'].read)}
+    File.open('compseckeystore', "wb") { |f| f.write(file['File'].read)}
     
     @filename = file['File'].original_filename   
     @data = `keytool -list -v -keystore "compseckeystore" -storepass #{password}`
