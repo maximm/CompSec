@@ -1,13 +1,24 @@
 <h1>File Uploaded</h1>
-<%= @notice %>
-<br><br>
-<%= @approvedText.html_safe%>
-<br><br>
-<%= @ApprovalInfo.html_safe %>
-<br><br>
-<%= link_to "<-- Back", :controller => "upload" %>
+<p>
+  <%= @notice %>
+</p>
+<p>
+  <%= @approvedText.html_safe%>
+  <br>
+  <%=@receipt.html_safe%>
+</p>
 
-<br><br>
-<%= @KeyToolResponse.html_safe %>
-<br><br>
-<img src="http://imgs.xkcd.com/comics/responsible_behavior.png" />
+<p>
+  <%= @ApprovalInfo.html_safe %>
+</p>
+
+<p>
+  <%= link_to "<-- Back", :controller => "upload" %>  
+</p>
+<p>
+  <%= @KeyToolResponse.html_safe %>
+</p>
+
+<p>
+  <img src="http://imgs.xkcd.com/comics/responsible_behavior.png" />
+</p>
