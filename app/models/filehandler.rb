@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 
 class Filehandler
-  attr_accessor :data, :filename, :stil, :stil2, :approved
+  attr_accessor :data, :filename, :stil, :stil2, :approved, :id
   
   def initialize(file, password, stil, stil2)
     if password.empty? then
       password = ".EMPTY."
     end
     
-    File.open("#{RAILS_ROOT}/tmp/myfile_#{Process.pid}", "wb") { |f| f.write(file['File'].read)}
+    @id = rand(99999999999)
+    Thread.new do
+      File.open("#{RAILS_ROOT}/tmp/myfile_#{@id}", "wb") { |f| f.write(file['File'].read)}
+    end
     
     @filename = file['File'].original_filename   
-    @data = `keytool -list -v -keystore "#{RAILS_ROOT}/tmp/myfile_#{Process.pid}" -storepass #{password}`
+    @data = `keytool -list -v -keystore "#{RAILS_ROOT}/tmp/myfile_#{@id}" -storepass #{password}`
     @stil = stil
     @stil2 = stil2
     self.cleanup()
@@ -74,8 +77,8 @@ class Filehandler
   end
   
   def cleanup
-    if File.exist?("#{RAILS_ROOT}/tmp/myfile_#{Process.pid}") then
-      File.delete("#{RAILS_ROOT}/tmp/myfile_#{Process.pid}") 
+    if File.exist?("#{RAILS_ROOT}/tmp/myfile_#{@id}") then
+      File.delete("#{RAILS_ROOT}/tmp/myfile_#{@id}")
     end
   end
 end
