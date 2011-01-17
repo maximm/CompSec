@@ -1,5 +1,3 @@
-
-
 #Generate private keys
 openssl genrsa -out CA_key.pem 1024
 openssl genrsa -out client_key.pem 1024

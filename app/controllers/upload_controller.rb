@@ -22,7 +22,7 @@ class UploadController < ApplicationController
         if !name2.empty? then
           @receipt +="<br>Your receipt for #{name2} is <b>" + `echo "#{name2}EIT060_2011_P1" | sha1sum | head -c 4` + "</b>. Please save this as a token for finishing Project 1"
         end
-        @approvedText = "<font color=green size=+2>Congratulations! Project approved</font>"
+        @approvedText = "<font color=green size=+2>Congratulations! Project 1 approved</font>"
         if User.find_by_name(name1).nil? then
           User.new(:name => name1).save
         end
