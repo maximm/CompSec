@@ -3,6 +3,7 @@ Uploader::Application.routes.draw do
   # first created -> highest priority.
 
   resources :users
+  
  
   resources :upload
   # Sample of regular route:
