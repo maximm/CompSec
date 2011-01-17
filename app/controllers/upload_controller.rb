@@ -4,10 +4,18 @@ class UploadController < ApplicationController
   end
   
   def create
-    file = Filehandler.new(params[:file], params[:password]['Password'])
+    file = Filehandler.new(params[:file], params[:password]['Password'], params[:stil]['STIL'], params[:stil2]['STIL2'] )
 
     @KeyToolResponse = file.data.gsub("\n", '<br>')
     @ApprovalInfo = file.approve().gsub("\n", '<br>')
+    @approved = file.approved
+    @approvedText = ""
+    if(@approved == true) then
+      @approvedText = "<font color=green size=+2>Congratulations! Project approved</font>"
+    else
+      @approvedText = "<font color=red size=+2>Project not approved</font>"
+    end
+      
     @notice = file.filename + ' was successfully uploaded'
   end
 end

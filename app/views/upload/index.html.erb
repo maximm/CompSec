@@ -1,9 +1,26 @@
 <h1>Upload File</h1>
 <h2><%= @notice %></h2>
 <%= form_tag({:action => "create"}, :multipart => true) do %>
-  <%= file_field(:file, "File") %>
-  <br>
-  <%= text_field(:password, "Password")%> Password
-  <br>
+  <p>
+    Keystore file (compseckeystore)
+    <br>
+    <%= file_field(:file, "File") %>
+  </p>
+  <p>
+    Password (compseckeystore)
+    <br>
+    <%= text_field(:password, "Password")%>
+  </p>
+  <p>
+    STIL-Identity (Username)
+    <br>
+    <%= text_field(:stil, "STIL")%> 
+  </p>
+    <p>
+    Secondary STIL-Identity
+    <br>
+    <%= text_field(:stil2, "STIL2")%> 
+  </p>
+
   <%= submit_tag("Upload") %>
 <% end %>
