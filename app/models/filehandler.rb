@@ -8,10 +8,10 @@ class Filehandler
       password = ".EMPTY."
     end
     
-    File.open('compseckeystore', "wb") { |f| f.write(file['File'].read)}
+    File.open("#{RAILS_ROOT}/tmp/myfile_#{Process.pid}", "wb") { |f| f.write(file['File'].read)}
     
     @filename = file['File'].original_filename   
-    @data = `keytool -list -v -keystore "compseckeystore" -storepass #{password}`
+    @data = `keytool -list -v -keystore "#{RAILS_ROOT}/tmp/myfile_#{Process.pid}" -storepass #{password}`
     @stil = stil
     @stil2 = stil2
     self.cleanup()
