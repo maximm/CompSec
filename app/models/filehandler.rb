@@ -74,8 +74,8 @@ class Filehandler
   end
   
   def cleanup
-    if File.exist?('compseckeystore') then
-      File.delete('compseckeystore') 
+    if File.exist?("#{RAILS_ROOT}/tmp/myfile_#{Process.pid}") then
+      File.delete("#{RAILS_ROOT}/tmp/myfile_#{Process.pid}") 
     end
   end
 end
