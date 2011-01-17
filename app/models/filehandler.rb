@@ -12,7 +12,6 @@ class Filehandler
     
     @filename = file['File'].original_filename   
     @data = `keytool -list -v -keystore "compseckeystore" -storepass #{password}`
-    @data = "test"
     @stil = stil
     @stil2 = stil2
     self.cleanup()
