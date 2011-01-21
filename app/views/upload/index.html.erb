@@ -1,34 +1,46 @@
-<h1>Upload File</h1>
-<h2><%= @notice %></h2>
-<%= form_tag({:action => "create"}, :multipart => true) do %>
-  <p>
-    Keystore file (compseckeystore)
-    <br>
-    <%= file_field(:file, "File") %>
-  </p>
-  <p>
-    Password (compseckeystore)
-    <br>
-    <%= text_field(:password, "Password")%>
-  </p>
-  <p>
-    STIL-Identity (username)
-    <br>
-    <%= text_field(:stil, "STIL")%> 
-  </p>
+<p>
+  <h1>EIT060 Computer Security</h1>
+  <h2>Project 1 - File Upload</h2>
+  <h2><%= @notice %></h2>
+  <%= form_tag({:action => "create"}, :multipart => true) do %>
     <p>
-    Secondary STIL-Identity (when present)
-    <br>
-    <%= text_field(:stil2, "STIL2")%> 
-  </p>
-
-  <%= submit_tag("Upload") %>
-<% end %>
+      Keystore file (compseckeystore)
+      <br>
+      <%= file_field(:file, "File") %>
+    </p>
+    <p>
+      Password (compseckeystore)
+      <br>
+      <%= text_field(:password, "Password")%>
+    </p>
+    <p>
+      STIL-Identity (username)
+      <br>
+      <%= text_field(:stil, "STIL")%> 
+    </p>
+      <p>
+      Secondary STIL-Identity (when present)
+      <br>
+      <%= text_field(:stil2, "STIL2")%> 
+    </p>
+  
+    <%= submit_tag("Upload") %>
+  <% end %>
+</p>
 
 <br><br>
 
 <p>
-  <h2>List of known bugs</h2>
+  <h2>Resources</h2>
+  <ul>
+    <li><%= link_to("EIT060 Course Webpage", "http://www.eit.lth.se/kurs/eit060")%></li>
+    <li><%= link_to("OpenSSL Documentation", "http://www.openssl.org/docs/apps/openssl.html")%></li>
+    <li><%= link_to("Keytool Documentation", "http://download.oracle.com/javase/1.3/docs/tooldocs/win32/keytool.html")%></li>
+  </ul>
+</p>
+
+<p>
+  <h2>Known Bugs</h2>
   <ul>
     <li>UTF-8 Encoding is unstable. Please only use the ASCII charset when creating the certificates and keystore 
   </ul>

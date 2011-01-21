@@ -40,7 +40,7 @@ class Filehandler
     end
     
     # STIL-Login approved
-    if @data.match("CN="+@stil+"\n") then
+    if @data.match("CN="+@stil+"\n") || @data.match("CN="+@stil+",") then
       @ApprovedList += "OK: STIL-Identity present\n"
     else
       @approved = false

@@ -18,7 +18,7 @@ class UploadController < ApplicationController
       
       @approvedText = ""
       if(@approved == true) then
-        @receipt = "Your receipt for #{name1} is <b>" + `echo "#{name1}EIT060_2011_P1" | sha1sum | head -c 4` + "</b>. Please save this as a token for finishing Project 1"
+        @receipt = "Your receipt for #{name1} is <b>" + `echo #{name1} | sha1sum | head -c 4` + "</b>. Please save this as a token for finishing Project 1"
         if !name2.empty? then
           @receipt +="<br>Your receipt for #{name2} is <b>" + `echo "#{name2}EIT060_2011_P1" | sha1sum | head -c 4` + "</b>. Please save this as a token for finishing Project 1"
         end
