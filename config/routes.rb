@@ -6,8 +6,8 @@ Uploader::Application.routes.draw do
   match '/users' => 'upload#index'
   match '/supersecretusercontroller' => 'users#index'
   resources :users 
-  #root :to => 'upload#index'
-  root :to => 'general#index'
+  root :to => 'upload#index'
+  #root :to => 'general#index'
   resources :upload
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

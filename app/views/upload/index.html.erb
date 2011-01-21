@@ -14,16 +14,28 @@
       <%= text_field(:password, "Password")%>
     </p>
     <p>
-      STIL-Identity (username)
-      <br>
-      <%= text_field(:stil, "STIL")%> 
+      <h3>STIL-Identity #1</h3>
+      The one present in the keystore
+      <br><br>
+      STIL-Identity<br>
+      <%= text_field(:stil1, "stil")%><br>
+      First name<br> 
+      <%= text_field(:stil1, "fName")%><br>
+      Last name<br>
+      <%= text_field(:stil1, "lName")%><br>
     </p>
-      <p>
-      Secondary STIL-Identity (when present)
-      <br>
-      <%= text_field(:stil2, "STIL2")%> 
+    <p>
+      <h3>STIL-Identity #2</h3>
+      For the second user
+      <br><br>
+      STIL-Identity<br>
+      <%= text_field(:stil2, "stil")%><br>
+      First name<br>  
+      <%= text_field(:stil2, "fName")%><br>
+      Last name<br>
+      <%= text_field(:stil2, "lName")%><br>
     </p>
-  
+    <br>
     <%= submit_tag("Upload") %>
   <% end %>
 </p>

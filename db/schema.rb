@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110117155732) do
+ActiveRecord::Schema.define(:version => 20110121102018) do
 
   create_table "filehandlers", :force => true do |t|
     t.datetime "created_at"
@@ -21,6 +21,12 @@ ActiveRecord::Schema.define(:version => 20110117155732) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "firstNameStil1"
+    t.string   "lastNameStil1"
+    t.string   "firstNameStil2"
+    t.string   "lastNamestil2"
+    t.string   "stil1"
+    t.string   "stil2"
   end
 
 end

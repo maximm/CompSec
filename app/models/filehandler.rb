@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 class Filehandler
-  attr_accessor :data, :filename, :stil, :stil2, :approved, :id, :filepath
+  attr_accessor :data, :filename, :stil, :approved, :id, :filepath
   
-  def initialize(file, password, stil, stil2)
+  def initialize(file, password, stil)
     if password.empty? then
       password = ".EMPTY."
     end
@@ -18,7 +18,6 @@ class Filehandler
     @data = `keytool -list -v -keystore "#{filepath}" -storepass #{password}`
     #@data = "helloäöå"
     @stil = stil
-    @stil2 = stil2
     self.cleanup()
   end
   

@@ -1,19 +1,37 @@
 <h1>Listing users</h1>
 
-<table style="width:500px; text-align:left;">
+<table style="width:1200px; text-align:left;">
   <tr>
-    <th>STIL Identity</th>
     <th>Date Created</th>
+    <th>STIL Identity 1</th>
+    <th>First Name 1</th>
+    <th>Last Name 1</th>
+    <th>STIL Identity 2</th>
+    <th>First Name 2</th>
+    <th>Last Name 2</th>
     <th>Delete?</th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.name %></td>
     <td><%= user.created_at %></td>
+    <td><%= user.stil1 %></td>
+    <td><%= user.firstNameStil1 %></td>
+    <td><%= user.lastNameStil1 %></td>
+    <td><%= user.stil2 %></td>
+    <td><%= user.firstNameStil2 %></td>
+    <td><%= user.lastNamestil2 %></td>
     <td><%= link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
+<br>
+<p>
+    <%= form_tag({:action => "index"}) do %>
+    <%= text_field(:sha, "userName") %><br>
+    <%= submit_tag("Generate SHA1SUM") %><br>
+    <b><%= @sha1sum%></b>
+  <% end %>
+</p>
 
 <br />
