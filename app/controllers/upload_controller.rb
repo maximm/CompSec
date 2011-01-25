@@ -28,8 +28,8 @@ class UploadController < ApplicationController
         @approvedText = "<font color=green size=+2>Congratulations! Project 1 approved</font>"
         if User.find_by_stil1(name1).nil? then
           User.new(:stil1 => su1['stil'], :firstNameStil1 =>su1['fName'], :lastNameStil1 => su1['lName'], :stil2 => su2['stil'], :firstNameStil2 =>su2['fName'], :lastNamestil2 => su2['lName']).save
-        else
-          User.find_by_stil1(name1).destroy
+        elsif User.find_by_stil2(name2).nil? then
+          #User.find_by_stil1(name1).destroy
           User.new(:stil1 => su1['stil'], :firstNameStil1 =>su1['fName'], :lastNameStil1 => su1['lName'], :stil2 => su2['stil'], :firstNameStil2 =>su2['fName'], :lastNamestil2 => su2['lName']).save
         end
       else

@@ -5,7 +5,8 @@ Uploader::Application.routes.draw do
 
   match '/users' => 'upload#index'
   match '/supersecretusercontroller' => 'users#index'
-  resources :users 
+  resources :users
+  match '/supersecretusercontroller' => 'users#index' 
   root :to => 'upload#index'
   #root :to => 'general#index'
   resources :upload
