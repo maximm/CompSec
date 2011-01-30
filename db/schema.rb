@@ -10,9 +10,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110121102018) do
+ActiveRecord::Schema.define(:version => 20110130161740) do
+
+  create_table "databases", :force => true do |t|
+    t.string   "masters"
+    t.boolean  "mastersI"
+    t.integer  "age"
+    t.boolean  "ageI"
+    t.boolean  "sex"
+    t.integer  "score"
+    t.boolean  "scoreI"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "filehandlers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "students", :force => true do |t|
+    t.string   "masters"
+    t.integer  "age"
+    t.boolean  "sex"
+    t.integer  "score"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
