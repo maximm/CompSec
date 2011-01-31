@@ -27,7 +27,7 @@
 </table>
 <br>
 <p>
-    <%= form_tag({:action => "index"}) do %>
+  <%= form_tag({:action => "index"}) do %>
     <%= text_field(:sha, "userName") %><br>
     <%= submit_tag("Generate SHA1SUM") %><br>
     <b><%= @sha1sum%></b>

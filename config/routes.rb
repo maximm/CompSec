@@ -12,6 +12,8 @@ Uploader::Application.routes.draw do
   root :to => 'upload#index'
   #root :to => 'general#index'
   resources :upload
+  
+  resources :student
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
