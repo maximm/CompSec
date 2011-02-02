@@ -4,16 +4,58 @@ class StudentController < ApplicationController
   end
   
   def create
-     @db = Array.new()
-    r = Random.new(params[:un]['un'].hash)
+    # Create the array with 499 student results
+    @db = Array.new()
+    if !params[:un].nil? then 
+      @username = params[:un]['un']
+    else
+      @username = params[:un2]
+    end
+    r = Random.new(@username.hash)
     499.times { @db << Student.new(r) }
     
     # Unique property
     s = Student.new(r)
-    s.age = 47
+    s.age = 40 + r.rand(10)
+    s.sex = "Male"
     @db << s
     
+    # Masters
+    if !params[:s].nil? && !params[:s]['masters'].empty?
+      if Integer(params[:mi]['1']) == 1 then
+        @db.delete_if { |s| s.masters == params[:s]['masters'] }
+      else
+        @db.delete_if { |s| s.masters != params[:s]['masters'] }
+      end 
+    end
+    
+    # Age
+    if !params[:s].nil? && params[:s]['age'].is_integer? then
+      if Integer(params[:ai]['1']) == 1  then
+        @db.delete_if { |s| s.age == Integer(params[:s]['age']) }  
+      else
+        @db.delete_if { |s| s.age != Integer(params[:s]['age']) }
+      end
+    end
+    
+    # Sex
+    if !params[:s].nil? && params[:gender] == "male" then
+      @db.delete_if { |s| s.sex == "Female" }
+    elsif !params[:s].nil? && params[:gender] == "female" then
+      @db.delete_if { |s| s.sex == "Male" }
+    end
+    
+    if @db.size > 0 then
+      @mean = @db.sum { |s| s.score } / Float(@db.size)
+    end
+        
     # Sort by score
     @db.sort! { |a,b| a.score <=> b.score }   
+  end
+end
+
+class String
+  def is_integer?
+    self.to_i.to_s == self
   end
 end

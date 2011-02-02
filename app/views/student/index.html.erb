@@ -3,15 +3,37 @@
 <html lang="en">
   <head>
 	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	  <title>index.html</title>
+	  <title>EIT060 Computer Security</title>
 	  <%= javascript_include_tag :defaults %>
 	  <%= yield :head %>
   </head>
   <body>
+    <h1>EIT060 Computer Security</h1>
+    <h2>Project 2 - Tracker Attack</h2>
+    <p>
+      <b>Mission</b><br>
+      <div style="width:400px">
+        You have just finished your exam in EIT666 Computer Unsecurity at the university of Oklahoma. 
+        A stranger walks up to you and starts whispering in your ear. 
+        He explains that he's an avid gambler and would like to challenge your score.
+        With a bet of $500 he wages that he has the same or higher score than you.
+        He gives you a week to decide.
+        <br><br>
+        He knows that the school has a statistical database where one can gather mathematical means for exam results.
+        He knows that no query can give results on query sets that contain to few or too many results.
+        You know that too, but you also know about the concept of Tracker Attacks.
+        <br><br>
+        As he walks away you notice that his grey hair makes him look older than all other students in the class. You gess that his age is between 40 and 50 years.
+        All you have to do is figure out his score and compare it with your own to make a decision that would net you and easy $500.
+        <br><br>
+        Please provide your STIl-identity to begin your mission.
+      </div>
+    </p>
     <p>
       <%= form_tag(:action => "index") do %>
+        <b>STIL-Identity</b><br>
         <%= text_field(:un, "un") %><br>
-        <%= submit_tag("UserName") %><br>
+        <%= submit_tag("Submit") %><br>
       <% end %>
     </p> 
   <%= yield %>

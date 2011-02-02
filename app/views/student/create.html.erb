@@ -8,11 +8,55 @@
 	  <%= yield :head %>
   </head>
   <body>
-   
+    <h1>Statistical Datasearch for EIT666</h1>
+    <h2>Results</h2>
+    <% if @db.size > 3 && @db.size <= 497 then%>
+   <p>
+     Set size: <%= @db.size %>
+     <br>
+     Set mean: <%= @mean %>
+   </p>
+   <% elsif @db.size == 0%>
+    The question returned zero answers
+   <% else %>
+    <p>
+      The question generated to few results, alternatively contains the whole set. Please limit your query and try again
+    </p>
+  <% end %>
+  <h2>Query</h2>
+   <p>
+      <%= form_tag(:action => "create", :un2 => @username) do %>
+      <p>
+        <b>Masters [D, M, Pi, I, C]</b><br>
+        <%= text_field(:s, 'masters') %>
+        <%= check_box(:mi, "1")%> NOT
+      </p>
+      <p>
+        <b>Age</b><br>
+        <%= text_field(:s, "age") %>
+        <%= check_box(:ai, "1")%> NOT
+      </p>
+      
+      <p>
+      <b>Sex</b><br>
+        <%= radio_button_tag(:gender, "female" )%>
+        <%= label_tag(:gender_female, "Female")%>
+        <%= radio_button_tag(:gender, "male" )%>
+        <%= label_tag(:gender_male, "Male")%>
+        <%= radio_button_tag(:gender, "all" )%>
+        <%= label_tag(:gender_All, "All")%><br>
+      </p>
+      <%= submit_tag("Submit") %><br>
+      <% end %>
+    </p> 
+    
+    <!--
     <p>
       <% @db.each do |student| %>
         <%= student.to_s %><br>
       <% end %>
     </p>
+    -->
+
   </body>
 </html>
