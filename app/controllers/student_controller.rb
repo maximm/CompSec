@@ -50,9 +50,20 @@ class StudentController < ApplicationController
     end
         
     # Sort by score
-    @db.sort! { |a,b| a.score <=> b.score }   
+    @db.sort! { |a,b| a.score <=> b.score }
+    
+    # Submitting results
+    @notice = ""
+    if params[:rs]['rs'].is_integer? then
+      if Integer(params[:rs]['rs']) >= s.score - 1 &&  Integer(params[:rs]['rs']) <= s.score + 1 then
+        @notice = "<font color='green' size='5'>Congratulations, your result is correct!</font><br>Results have been saved"
+      else
+        @notice = "<font color='red' size='5'>Answer not correct. Please try again</font>"
+      end
+    end       
   end
 end
+
 
 class String
   def is_integer?

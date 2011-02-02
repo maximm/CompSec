@@ -46,7 +46,17 @@
         <%= radio_button_tag(:gender, "all" )%>
         <%= label_tag(:gender_All, "All")%><br>
       </p>
-      <%= submit_tag("Submit") %><br>
+      <%= submit_tag("Query") %><br>
+      
+      <br><br>
+      <p>
+        <h2>Submit Results</h2>
+        <p>
+          <%= @notice.html_safe %>
+        </p>
+        <%= text_field(:rs, "rs")%><br>
+        <%= submit_tag("Submit")%>
+      </p>
       <% end %>
     </p> 
     
