@@ -54,7 +54,7 @@ class StudentController < ApplicationController
     
     # Submitting results
     @notice = ""
-    if params[:rs]['rs'].is_integer? then
+    if !params[:rs].nil? && params[:rs]['rs'].is_integer? then
       if Integer(params[:rs]['rs']) >= s.score - 1 &&  Integer(params[:rs]['rs']) <= s.score + 1 then
         @notice = "<font color='green' size='5'>Congratulations, your result is correct!</font><br>Results have been saved"
       else

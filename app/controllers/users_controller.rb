@@ -5,8 +5,11 @@ class UsersController < ApplicationController
     @users = User.all
     @users.sort! { |a,b| a.lastNameStil1.downcase <=> b.lastNameStil1.downcase }
     if !params[:sha].nil? then
-    @sha1sum = `echo "#{params[:sha]['userName']}EIT060_2011_P1" | sha1sum | head -c 4`
+      @sha1sum = `echo "#{params[:sha]['userName']}EIT060_2011_P1" | sha1sum | head -c 4`
     end
+
+    @count = @users.count
+    @users.each { |u| @count += u.stil2.empty? ? 0 : 1 }
 
     respond_to do |format|
       format.html # index.html.erb
