@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	  <title>help.html</title>
+	  <%= javascript_include_tag :defaults %>
+	  <%= yield :head %>
+  </head>
+  <body>
+    <h1>Help</h1>
+
+    <p>
+      <h2>Results</h3>
+      <b>Query: </b>The SQL-query generated from your search parameters.<br>
+      <b>Set size: </b>Number of students returned.<br>
+      <b>Score mean: </b>Mean score for all the students on the test. Min: 0 Max: 1000.<br>
+    </p>
+    
+    <h2>Query</h2>
+    <p>
+      <h3>Master</h3>
+      <b>Master: </b>Choose <b>none or one</b> master from [D, M, Pi, I, C].<br>
+      <b>NOT: </b>Invert the selection. Input a master and check NOT to get all students not studying the selected master. 
+    </p>
+    <p>
+      <h3>Age</h3>
+      <b>Age: </b>Choose <b>none or one</b> age from 0 to 100.<br>
+      <b>NOT: </b>Invert the selection. Input an age and check NOT to get all students not that age.
+    </p>
+    <p>
+      <h3>Sex</h3>
+      <b>Male: </b>Select all males.<br>
+      <b>Female: </b>Select all females.<br>
+      <b>All: </b>Select both males and females.
+    </p>
+    <p>
+      <h3>Submit-button</h3>
+      Submit the results and get the results from the query. Possible outcomes are:<br>
+      <ul>
+        <li><b>The question returned zero answers: </b>The query generated an empty set of students. Try broadening your search to include more results. </li>
+        <li><b>The question generated to few results: </b>The query generated too few results. As this is a statistical database no querys generating fewer than 3 results can be disclosed to the user</li>
+        <li><b>Set size and Set mean: </b>When a query is successfull the database returns the number of results in the result aswell as the mean score</li>
+      </ul>
+    </p>
+    
+  </body>
+</html>

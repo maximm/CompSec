@@ -8,6 +8,7 @@
 	  <%= yield :head %>
   </head>
   <body>
+    [<%= link_to "Help", :action => "help" %>]
     <h1>Statistical Datasearch for EIT666</h1>
     
     <h2>Results</h2>
@@ -49,7 +50,7 @@
           <%= radio_button_tag(:gender, "all", :checked => true )%>
           <%= label_tag(:gender_All, "All")%><br>
         </p>
-        <%= submit_tag("Query") %><br>
+        <%= submit_tag("Submit") %><br>
         
         <br><br>
         <p>
@@ -62,14 +63,5 @@
         </p>
         <% end %>
       </p> 
-      
-      <!--
-      <p>
-        <% @db.each do |student| %>
-          <%= student.to_s %><br>
-        <% end %>
-      </p>
-      -->
-
   </body>
 </html>

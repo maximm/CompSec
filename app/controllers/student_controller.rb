@@ -78,7 +78,10 @@ class StudentController < ApplicationController
         @notice = "<font color='red' size='5'>Answer not correct. Please try again</font>"
       end
     end
- 
+  end
+  
+  def help
+    
   end
 end
 
