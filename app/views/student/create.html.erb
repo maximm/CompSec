@@ -9,64 +9,67 @@
   </head>
   <body>
     <h1>Statistical Datasearch for EIT666</h1>
-    <h2>Results</h2>
-    <% if @db.size > 3 && @db.size <= 497 then%>
-   <p>
-     Set size: <%= @db.size %>
-     <br>
-     Set mean: <%= @mean %>
-   </p>
-   <% elsif @db.size == 0%>
-    The question returned zero answers
-   <% else %>
-    <p>
-      The question generated to few results, alternatively contains the whole set. Please limit your query and try again
-    </p>
-  <% end %>
-  <h2>Query</h2>
-   <p>
-      <%= form_tag(:action => "create", :un2 => @username) do %>
-      <p>
-        <b>Masters [D, M, Pi, I, C]</b><br>
-        <%= text_field(:s, 'masters') %>
-        <%= check_box(:mi, "1")%> NOT
-      </p>
-      <p>
-        <b>Age</b><br>
-        <%= text_field(:s, "age") %>
-        <%= check_box(:ai, "1")%> NOT
-      </p>
-      
-      <p>
-      <b>Sex</b><br>
-        <%= radio_button_tag(:gender, "female" )%>
-        <%= label_tag(:gender_female, "Female")%>
-        <%= radio_button_tag(:gender, "male" )%>
-        <%= label_tag(:gender_male, "Male")%>
-        <%= radio_button_tag(:gender, "all" )%>
-        <%= label_tag(:gender_All, "All")%><br>
-      </p>
-      <%= submit_tag("Query") %><br>
-      
-      <br><br>
-      <p>
-        <h2>Submit Results</h2>
-        <p>
-          <%= @notice.html_safe %>
-        </p>
-        <%= text_field(:rs, "rs")%><br>
-        <%= submit_tag("Submit")%>
-      </p>
-      <% end %>
-    </p> 
     
-    <!--
+    <h2>Results</h2>
     <p>
-      <% @db.each do |student| %>
-        <%= student.to_s %><br>
-      <% end %>
+      Query: <b><%= @query %></b><br>
+      <% if @db.size > 3 then%>
+       <% if @db.size == 500 then%>
+       <% end %>
+       Set size: <b><%= @db.size %></b>
+       <br>
+       Score mean: <b><%= @mean %></b>
+     <% elsif @db.size == 0%>
+      The question returned zero answers
+     <% else %>
+      The question generated to few results
+    <% end %>
     </p>
-    -->
+    
+    <h2>Query</h2>
+     <p>
+        <%= form_tag(:action => "create", :un2 => @username) do %>
+        <p>
+          <b>Masters [D, M, Pi, I, C]</b><br>
+          <%= text_field(:s, 'masters') %>
+          <%= check_box(:mi, "1")%> NOT
+        </p>
+        <p>
+          <b>Age</b><br>
+          <%= text_field(:s, "age") %>
+          <%= check_box(:ai, "1")%> NOT
+        </p>
+        
+        <p>
+        <b>Sex</b><br>
+          <%= radio_button_tag(:gender, "female" )%>
+          <%= label_tag(:gender_female, "Female")%>
+          <%= radio_button_tag(:gender, "male" )%>
+          <%= label_tag(:gender_male, "Male")%>
+          <%= radio_button_tag(:gender, "all", :checked => true )%>
+          <%= label_tag(:gender_All, "All")%><br>
+        </p>
+        <%= submit_tag("Query") %><br>
+        
+        <br><br>
+        <p>
+          <h2>Submit Results</h2>
+          <p>
+            <%= @notice.html_safe %>
+          </p>
+          <%= text_field(:rs, "rs")%><br>
+          <%= submit_tag("Submit")%>
+        </p>
+        <% end %>
+      </p> 
+      
+      <!--
+      <p>
+        <% @db.each do |student| %>
+          <%= student.to_s %><br>
+        <% end %>
+      </p>
+      -->
 
   </body>
 </html>
