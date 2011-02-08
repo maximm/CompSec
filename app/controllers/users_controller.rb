@@ -11,7 +11,13 @@ class UsersController < ApplicationController
       if params[:sort] == "lname1" then
         @users.sort! { |a,b| a.lastNameStil1.downcase <=> b.lastNameStil1.downcase }
       elsif params[:sort] == "lname2" then
-        @users.sort! { |a,b| a.lastNameStil2.downcase <=> b.lastNameStil2.downcase }
+        @users.sort! { |a,b| a.lastNamestil2.downcase <=> b.lastNamestil2.downcase }
+      elsif params[:sort] == "stil1" then
+        @users.sort! { |a,b| a.stil1.downcase <=> b.stil1.downcase }
+      elsif params[:sort] == "stil2" then
+        @users.sort! { |a,b| a.stil2.downcase <=> b.stil2.downcase }
+      elsif params[:sort] == "date" then
+        @users.sort! { |a,b| a.created_at <=> b.created_at }        
       end
     end
     

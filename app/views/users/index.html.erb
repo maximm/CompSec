@@ -2,11 +2,11 @@
 <h2>Passed: <%= @count %></h2>
 <table style="width:1200px; text-align:left;">
   <tr>
-    <th>Date Created</th>
-    <th>STIL Identity 1</th>
+    <th><%= link_to "Date Created", :controller => "users", :action => "index", :sort => "date" %></th>
+    <th><%= link_to "STIL Identity 1", :controller => "users", :action => "index", :sort => "stil1" %></th>
     <th>First Name 1</th>
-    <th>Last Name 1</th>
-    <th>STIL Identity 2</th>
+    <th><%= link_to "Last Name 1", :controller => "users", :action => "index", :sort => "lname1" %></th>
+    <th><%= link_to "STIL Identity 2", :controller => "users", :action => "index", :sort => "stil2" %></th>
     <th>First Name 2</th>
     <th><%= link_to "Last Name 2", :controller => "users", :action => "index", :sort => "lname2" %></th>
     <th>Delete?</th>
