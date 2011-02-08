@@ -3,11 +3,24 @@ class UsersController < ApplicationController
   # GET /users.xml
   def index
     @users = User.all
-    @users.sort! { |a,b| a.lastNameStil1.downcase <=> b.lastNameStil1.downcase }
+    
+    # Sorting
+    @users.sort! { |a,b| a.lastNameStil1.downcase <=> b.lastNameStil1.downcase }  # Default sortmethod
+    
+    if !params[:sort].nil?
+      if params[:sort] == "lname1" then
+        @users.sort! { |a,b| a.lastNameStil1.downcase <=> b.lastNameStil1.downcase }
+      elsif params[:sort] == "lname2" then
+        @users.sort! { |a,b| a.lastNameStil2.downcase <=> b.lastNameStil2.downcase }
+      end
+    end
+    
+    # Hashing of usersnames
     if !params[:sha].nil? then
       @sha1sum = `echo "#{params[:sha]['userName']}EIT060_2011_P1" | sha1sum | head -c 4`
     end
 
+    # Count the number of approved stil names
     @count = @users.count
     @users.each { |u| @count += u.stil2.empty? ? 0 : 1 }
 
