@@ -5,7 +5,7 @@ class Student
     @masters = ["D", "M", "Pi", "I", "C"][r.rand(5)]
     @age = (18 + r.rand(10))
     @sex = ["Male", "Female"][r.rand(2)]
-    @score = r.rand(1000)
+    @score = r.rand(1001)
   end
   
   def to_s

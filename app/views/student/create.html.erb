@@ -14,16 +14,14 @@
     <h2>Results</h2>
     <p>
       Query: <b><%= @query %></b><br>
-      <% if @db.size > 3 then%>
-       <% if @db.size == 500 then%>
-       <% end %>
+     <% if @db.size > 3 || @db.size == 500 || @db.size < 500-3 then%>
        Set size: <b><%= @db.size %></b>
        <br>
        Score mean: <b><%= @mean %></b>
      <% elsif @db.size == 0%>
-      The question returned zero answers
+      The query returned zero answers
      <% else %>
-      The question generated to few results
+      The query generated too few or too many results
     <% end %>
     </p>
     
