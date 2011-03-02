@@ -4,7 +4,7 @@ Uploader::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-
+  resources :linux
   match '/users' => 'upload#index'
   match '/supersecretusercontroller' => 'users#index'
   resources :users
