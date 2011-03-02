@@ -1,0 +1,52 @@
+<p>
+  $ ls -la<br>
+  total 3<br>
+  
+  <table>
+      <tr>
+        <th></th>  
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Readable?</th>
+        <th>ls possible?</th>
+        <th>ls -l possible?</th>
+        <td>File removable?</td>
+      </tr>    
+    <% @linux.dirs.each do |item| %>
+
+      <tr>
+        <td><%= item.attr.join%></td>  
+        <td><%= 1+rand(5)%></td>
+        <td>Username</td>
+        <td>Groupname</td>
+        <td><%= 1+rand(10000)%></td>
+        <td>Jan 30 22:34</td>
+        <td><%= item.name %></td>
+        <td></td>
+        <td><%= @linux.ls_possible?%></td>
+        <td><%= @linux.enter_directory_possible?%></td>
+        <td></td>
+      </tr>
+    <% end %>
+    <% @linux.files.each do |item| %>
+      <tr>
+        <td><%= item.attr.join%></td>  
+        <td><%= 1+rand(5)%></td>
+        <td>Username</td>
+        <td>Groupname</td>
+        <td><%= 1+rand(10000)%></td>
+        <td>Jan 30 22:34</td>
+        <td><%= item.name %></td>
+        <td><%= item.is_readable? %></td>
+        <td></td>
+        <td></td>
+        <td><%= item.is_removable?%></td>
+      </tr>
+    <% end %>    
+  </table>
+
+</p>
