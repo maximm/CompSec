@@ -1,77 +1,100 @@
 class Linux
-  attr_accessor :files, :dirs
+  attr_accessor :qdb, :dirs, :params
   
-  def initialize()
+  def initialize(params)
     r = Random.new("username".hash)
-    names = ["readme", "database", "compiler", "solutions", "trackingdata", "breadcrumbs", "site", "origin", "training", "backstory"]
-    ends = [".txt", ".file", "", ".c", ".java", ".class", ".sql"]
+    @params = params
     @files = Array.new
     @dirs = Array.new
-    currdir =  Linuxdirectory.new(".")
-    predir = Linuxdirectory.new("..")
-    @dirs << predir << currdir
+    currdir =  Directory.new(".")
+    predir = Directory.new("..")
+    @dirs << currdir << predir
     
-    for i in 1..names.length
-      name = names[r.rand(names.length)]
-      names = names - [name]
-      @files << Linuxfile.new(name + ends[r.rand(ends.length)], currdir, predir)
-    end
+    @qdb = QuestionDatabase.new(r, predir, currdir, params)
   end
   
-    
-  def ls_possible?
-    @dirs[0].attr[1] == 'r' && @dirs[1].attr[1] == 'r'
+  def length
+    @qdb.questions.length + @dirs.length
   end
-  
-  def enter_directory_possible?
-    @dirs[0].attr[1] == 'r' && @dirs[1].attr[1] == 'r' && @dirs[0].attr[3] == 'x' && @dirs[1].attr[3] == 'x'
-  end
-  
 end
 
-class Linuxdirectory
+class FileNames
+  attr_accessor :names, :ends, :rand
+  def initialize(rand)
+    @rand = rand
+    @names = ["readme", "database", "compiler", "solutions", "trackingdata", "breadcrumbs", "site", "origin", "training", "backstory"]
+    @ends = [".txt", ".file", "", ".c", ".java", ".class", ".sql"]
+  end
+  
+  def getRandomName
+    name = @names[@rand.rand(@names.length)]
+    #@names = names - [name]
+    name = name + @ends[@rand.rand(@ends.length)]
+  end
+end
+
+class Directory
   attr_accessor :attr, :name
   def initialize(name)
     @attr = ['d','r','w','x','r','w','x','r','w','t']
     @name = name
   end
-
 end
 
-class Linuxfile
-  attr_accessor :attr, :name, :currdir, :predir
-  def initialize(name, currdir, predir)
-    @attr = ['-','r','w','x','r','w','x','r','w','x']
+class Question
+  attr_accessor :attr, :name, :owner, :group  , :question, :answer, :checked, :correct
+  def initialize(name, question, answer, attr, owner, group, checked)
     @name = name
-    @currdir = currdir
+    @question = question
+    @answer = answer
+    @attr = attr
+    @owner = owner
+    @group = group
+    @checked = checked
+    @correct = checked == answer
+  end
+end
+
+class QuestionDatabase
+  attr_accessor :questions, :rand, :predir, :currdir, :nbrCorrect
+  def initialize(rand, predir, currdir, params)
+    @rand = rand
     @predir = predir
+    @currdir = currdir
+    @questions = Array.new
+    self.generateQuestions(params)
+    @nbrCorrect = 0
+    @questions.each do |q|
+      if q.correct == true then
+        @nbrCorrect = @nbrCorrect + 1
+      end
+    end
+    
   end
   
-  def is_readable?
-    self.enter_directory_possible? && @attr[1] == 'r' 
+  def generateQuestions(params)
+    filenamer = FileNames.new(rand)
+    
+    filename = filenamer.getRandomName
+    @questions << Question.new(filename, "Can Alice read #{filename}?", true, ['-','r','w','x','r','w','x','r','w','x'], "Alice", "Students", self.isChecked?(filename, params))
+    filename = filenamer.getRandomName
+    @questions << Question.new(filename, "Can Bob read #{filename}?", true, ['-','r','w','x','r','w','x','r','w','x'], "Alice", "Students", self.isChecked?(filename, params))
+    filename = filenamer.getRandomName
+    @questions << Question.new(filename, "Can Donatello write to #{filename}?", false, ['-','-','-','x','r','w','x','r','w','x'], "Donatello", "Students", self.isChecked?(filename, params))
+
   end
   
-  def is_removable?
-    @predir.attr[1] == 'r' && @currdir.attr[2] == 'w' && self.enter_directory_possible?
+  def isChecked?(filename, params)
+    if params[filename].nil? then
+      return ""
+    else
+      return params[filename][filename] == 'true'
+    end
   end
   
-  def is_creatable?
-    self.is_removable?
-  end
-  
-  def is_changeable?
-    self.enter_directory_possible? && attr[1] == 'r' && attr[2] == 'w' 
-  end
-  
-  def is_executable?
-    self.enter_directory_possible? && attr[3] == 'x'
-  end
-  
-  def is_shell_executable?
-    self.is_executable? && attr[1] == 'r'
-  end
-  
-  def enter_directory_possible?
-    @predir.attr[3] == 'x' && @currdir.attr[3] == 'x'
+  def getRandomQuestion
+    if @questions.length > 0 then
+      return @questions[@rand.rand(questions.length)]
+    end
   end
 end

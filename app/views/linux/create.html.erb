@@ -1,0 +1,58 @@
+<p>
+  <% if @linux.qdb.nbrCorrect > @linux.qdb.questions.length/2 then %>
+  Correct answers: <%= "#{@linux.qdb.nbrCorrect} out of #{@linux.qdb.questions.length}" %><br>
+  <% else %>
+  Too few or zero correct answers<br>
+  <% end %>
+  $ ls -la<br>
+  total <%= @linux.length %><br>
+  
+  <table>
+      <tr>
+        <th></th>  
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>    
+    <% @linux.dirs.each do |item| %>
+
+      <tr>
+        <td><%= item.attr.join%></td>  
+        <td><%= 1+rand(5)%></td>
+        <td>Username</td>
+        <td>Groupname</td>
+        <td><%= 1+rand(10000)%></td>
+        <td>Jan 30 22:34</td>
+        <td><%= item.name %></td>
+      </tr>
+    <% end %>
+    <% @linux.qdb.questions.each do |item| %>
+      <tr>
+        <td><%= item.attr.join %></td>  
+        <td><%= 1+rand(5) %></td>
+        <td><%= item.owner %></td>
+        <td><%= item.group %></td>
+        <td><%= 1+rand(10000) %></td>
+        <td>Jan 30 22:34</td>
+        <td><%= item.name %></td>
+      </tr>
+    <% end %>    
+  </table>
+  <br><br>
+  <h1>Questions</h1>
+    <%= form_tag(:action => "index") do %>
+    <% @linux.qdb.questions.each do |item| %>
+      <p>
+        <%= item.question %><br>
+            <%= radio_button(item.name, item.name, true, :checked => item.checked) %>
+            <%= label_tag(item.name, "Yes")%>
+            <%= radio_button(item.name, item.name, false, :checked => !item.checked) %>
+            <%= label_tag(item.name, "No")%>
+      </p>
+      <% end %>
+      <%= submit_tag("Submit") %><br>
+    <% end %>
+</p>
