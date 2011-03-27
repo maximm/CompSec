@@ -10,28 +10,45 @@ class LinuxController < ApplicationController
     
     # Del 1
     part = Linux.new(rand, "Part 1 - Read / Write")
-    part.dirs << Directory.new(".", ['d','r','w','x','r','w','x','r','w','t'], "Alice", "Teachers") 
-    part.dirs << Directory.new("..", ['d','r','w','x','r','w','x','r','w','t'], "Alice", "Teachers") 
+    part.dirs << Directory.new(".", ['d','r','w','x','r','w','x','r','w','-'], "Bobby", "Teachers") 
+    part.dirs << Directory.new("..", ['d','r','w','x','r','w','x','r','w','x'], "Bobby", "Teachers") 
     
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Alice read #{filename}?", true, ['-','r','w','x','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    part.qdb.add(Question.new(filename, "Can Alice (Students) read #{filename}?", true, ['-','r','w','x','r','w','x','r','-','-'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Bob read #{filename}?", true, ['-','r','w','x','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    part.qdb.add(Question.new(filename, "Can Alice (Students) read #{filename}?", false, ['-','-','w','x','-','w','x','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Donatello write to #{filename}?", false, ['-','-','-','x','r','w','x','r','w','x'], "Donatello", "Students", part.qdb.isChecked?(filename, params)))
+    part.qdb.add(Question.new(filename, "Can Alice (Students) read #{filename}?", true, ['-','-','w','x','r','-','-','-','w','-'], "Mindy", "Students", part.qdb.isChecked?(filename, params)))
+    filename = filenamer.getRandomName
+    part.qdb.add(Question.new(filename, "Can Bobby (Teachers) read #{filename}?", false, ['-','-','w','x','r','w','x','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
+    filename = filenamer.getRandomName
+    part.qdb.add(Question.new(filename, "Can Bobby (Teachers) write to #{filename}?", true, ['-','r','w','x','-','w','-','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
+    filename = filenamer.getRandomName
+    part.qdb.add(Question.new(filename, "Can Mindy (Teachers) write to #{filename}?", false, ['-','r','-','x','r','-','x','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
+    filename = filenamer.getRandomName
+    part.qdb.add(Question.new(filename, "Can John (Parents) write to #{filename}?", false, ['-','r','w','-','-','-','-','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
+
+    
     @parts << part
 
     # Del 2
     part = Linux.new(rand, "Part 2 - Execute")
-    part.dirs << Directory.new(".", ['d','r','w','x','r','w','x','r','w','t'], "Alice", "Teachers") 
-    part.dirs << Directory.new("..", ['d','r','w','x','r','w','x','r','w','t'], "Alice", "Teachers")     
+    part.dirs << Directory.new(".", ['d','r','w','-','r','w','x','r','w','x'], "Alice", "Students") 
+    part.dirs << Directory.new("..", ['d','r','w','x','r','w','x','r','w','-'], "Bobby", "Teachers")     
     
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Roland delete #{filename}?", true, ['-','r','w','x','r','w','x','r','w','x'], "Bob", "Test", part.qdb.isChecked?(filename, params)))
+    part.qdb.add(Question.new(filename, "Can Alice (Students) execute #{filename}?", false, ['-','r','w','-','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Jesus move #{filename}?", false, ['-','r','w','x','r','w','x','r','w','x'], "Bob", "Test", part.qdb.isChecked?(filename, params)))
+    part.qdb.add(Question.new(filename, "Can Alice (Students) execute #{filename}?", false, ['-','r','w','x','r','w','-','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Testo delete to #{filename}?", false, ['r','w','-','x','r','w','x','r','w','x'], "Bob", "Test", part.qdb.isChecked?(filename, params)))
+    part.qdb.add(Question.new(filename, "Can Alice (Students) execute #{filename}?", false, ['r','w','-','x','r','w','x','r','w','-'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    filename = filenamer.getRandomName
+    part.qdb.add(Question.new(filename, "Can Bobby (Teachers) execute #{filename}?", true, ['r','w','-','x','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    filename = "script.sh"
+    part.qdb.add(Question.new(filename, "Can Bobby (Teachers) execute #{filename}?", true, ['r','w','-','x','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    filename = filenamer.getRandomName
+    part.qdb.add(Question.new(filename, "Can John (Parents) execute #{filename}?", false, ['r','w','-','x','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+
     @parts << part    
 
 

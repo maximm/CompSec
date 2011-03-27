@@ -42,7 +42,7 @@
           </p>
         <% end %>
           
-        <% if linux.qdb.nbrCorrect?/linux.qdb.length > 0.75 then %>
+        <% if linux.qdb.nbrCorrect?.to_f/linux.qdb.length > 0.55 then %>
           Correct answers: <%= "#{linux.qdb.nbrCorrect?} out of #{linux.qdb.questions.length}" %><br>
         <% else %>
           Too few or zero correct answers<br>

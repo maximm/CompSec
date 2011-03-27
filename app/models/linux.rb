@@ -50,18 +50,18 @@ class QuestionDatabase
     if @questions.length > 0 then
       return @questions.length
     else
-      return 0.1
+      return 1
     end
   end
 
   def nbrCorrect?
-    @nbrCorrect = 0
+    nbrCorrect = 0
     @questions.each do |q|
       if q.correct == true then
-        @nbrCorrect = @nbrCorrect + 1
+        nbrCorrect = nbrCorrect + 1
       end
     end
-    return @nbrCorrect
+    return nbrCorrect
   end
   
   def add(question)
