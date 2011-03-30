@@ -23,24 +23,24 @@ end
 
 class Directory
   attr_accessor :name, :attr, :owner, :group
-  def initialize(name, attr, owner, group)
+  def initialize(name, attr, user)
     @name = name
     @attr = attr
-    @owner = owner
-    @group = group
+    @owner = user.n
+    @group = user.g
     @attr = attr
   end
 end
 
 class Question
   attr_accessor :attr, :name, :owner, :group, :question, :answer, :checked, :correct
-  def initialize(name, question, answer, attr, owner, group, params)
+  def initialize(name, question, answer, attr, user, params)
     @name = name
     @question = question
     @answer = answer
     @attr = attr
-    @owner = owner
-    @group = group
+    @owner = user.n
+    @group = user.g
     @checked = self.isChecked?(name, params)
     @correct = @checked == answer
   end

@@ -5,7 +5,7 @@ class Filenames
     @names = ["readme", "database", "compiler", "solutions", "trackingdata", "breadcrumbs", "site", "origin", "training", "backstory", "static", "core", "Bonjour", "bpftp", "fraps", "docu1", "pics", "vacc", "blops", "imgs", "marvel", "IE9", "iTunes", "Windows8", "BBQparty", "Drone", "cakeislie", "draganov", "assassinationplans", "exam20110813", "extrmemakeover", "argasnickaren", "nbr42"]
     @ends = [".txt", ".file", "", ".c", ".java", ".class", ".sql", ".dbz", ".bat", ".exe", ".zip", ".rar", ".sha1"]
     @usernames = ["Alice", "Bob", "Sarah", "Mindy", "John", "Shannon", "Tracy", "Jordan", "Urkel", "Stephen", "Anders", "Erik"]
-    @directorynames = ["Photos", "Java", "Personal Documents", "Economy Calculator", "Pictures", "Videos", "Personal Files", "Extreme Stuff", "Where is Waldo", "Dummy Objects", "Adobe", "Microsoft", "Hangover Memories", "Dreaming Meerkats"]
+    @directorynames = ["Photos", "Java", "Personal Documents", "Economy Calculator", "Pictures", "Videos", "Personal Files", "Extreme Stuff", "Where is Waldo", "Dummy Objects", "Adobe", "Microsoft", "Hangover Memories", "Dreaming Meerkats", "Silly Cats", "Reddit.com Saves", "Crysis 2", "Half Life 2", "Portal 2", "Nintendo 3DS", "Holy Grails", "Angry Nintendo Nerd", "Bring Sexy Back", "This is Bat Country"]
   end
   
   def getRandomName
