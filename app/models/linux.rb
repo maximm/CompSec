@@ -10,6 +10,14 @@ class Linux
   def length
     @qdb.questions.length + @dirs.length
   end
+    
+  def randomizeQuestions(nbr, questions, rand)
+      nbr.times do
+      question = questions[rand.rand(questions.length)]
+      questions.delete_if { |q| q.name == question.name }
+      self.qdb.add(question)
+    end
+  end
 end
 
 
@@ -26,16 +34,24 @@ end
 
 class Question
   attr_accessor :attr, :name, :owner, :group, :question, :answer, :checked, :correct
-  def initialize(name, question, answer, attr, owner, group, checked)
+  def initialize(name, question, answer, attr, owner, group, params)
     @name = name
     @question = question
     @answer = answer
     @attr = attr
     @owner = owner
     @group = group
-    @checked = checked
-    @correct = checked == answer
+    @checked = self.isChecked?(name, params)
+    @correct = @checked == answer
   end
+  
+  def isChecked?(filename, params)
+    if params[filename].nil? then
+      return ""
+    else
+      return params[filename][filename] == 'true'
+    end
+  end  
 end
 
 
@@ -66,13 +82,5 @@ class QuestionDatabase
   
   def add(question)
      @questions << question
-  end
-  
-  def isChecked?(filename, params)
-    if params[filename].nil? then
-      return ""
-    else
-      return params[filename][filename] == 'true'
-    end
   end
 end

@@ -8,7 +8,9 @@
       <table>
         <% linux.dirs.each do |item| %>
           <tr>
-            <td><%= item.attr.join%></td>  
+            <% item.attr.each do |attr| %> 
+              <td><%= attr %></td>
+            <% end %>
             <td><%= 1+rand(5)%></td>
             <td><%= item.owner %></td>
             <td><%= item.group %></td>
@@ -19,7 +21,9 @@
         <% end %>
         <% linux.qdb.questions.each do |item| %>
           <tr>
-            <td><%= item.attr.join %></td>  
+            <% item.attr.each do |attr| %> 
+              <td><%= attr %></td>
+            <% end %> 
             <td><%= 1+rand(5) %></td>
             <td><%= item.owner %></td>
             <td><%= item.group %></td>

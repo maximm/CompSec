@@ -9,64 +9,80 @@ class LinuxController < ApplicationController
     @parts = Array.new
     
     # Del 1
-    part = Linux.new(rand, "Part 1 - Read / Write")
+    part = Linux.new(rand, "Part 1 - Read / Write / Execute / Listing Directories")
     part.dirs << Directory.new(".", ['d','r','w','x','r','w','x','r','w','-'], "Bobby", "Teachers") 
     part.dirs << Directory.new("..", ['d','r','w','x','r','w','x','r','w','x'], "Bobby", "Teachers") 
     
-    filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Alice (Students) read #{filename}?", true, ['-','r','w','x','r','w','x','r','-','-'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
-    filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Alice (Students) read #{filename}?", false, ['-','-','w','x','-','w','x','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
-    filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Alice (Students) read #{filename}?", true, ['-','-','w','x','r','-','-','-','w','-'], "Mindy", "Students", part.qdb.isChecked?(filename, params)))
-    filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Bobby (Teachers) read #{filename}?", false, ['-','-','w','x','r','w','x','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
-    filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Bobby (Teachers) write to #{filename}?", true, ['-','r','w','x','-','w','-','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
-    filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Mindy (Teachers) write to #{filename}?", false, ['-','r','-','x','r','-','x','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
-    filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can John (Parents) write to #{filename}?", false, ['-','r','w','-','-','-','-','r','w','x'], "Bobby", "Teachers", part.qdb.isChecked?(filename, params)))
-
     
-    @parts << part
+    # Read
+    questions = Array.new
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can Alice (Students) read #{filename}?", true, ['-','r','w','x','r','w','x','r','-','-'], "Bobby", "Teachers", params)
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can Alice (Students) read #{filename}?", false, ['-','-','w','x','-','w','x','r','w','x'], "John", "Parents", params)
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can Alice (Students) read #{filename}?", true, ['-','-','w','x','r','-','-','-','w','-'], "Mindy", "Students", params)
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can Bobby (Teachers) read #{filename}?", false, ['-','-','w','x','r','w','x','r','w','x'], "Bobby", "Teachers", params)
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can John (Parents) read #{filename}?", false, ['-','r','w','-','r','-','-','r','w','x'], "Bobby", "Teachers", params)
+    part.randomizeQuestions(2, questions, rand)
 
-    # Del 2
-    part = Linux.new(rand, "Part 2 - Execute")
-    part.dirs << Directory.new(".", ['d','r','w','-','r','w','x','r','w','x'], "Alice", "Students") 
-    part.dirs << Directory.new("..", ['d','r','w','x','r','w','x','r','w','-'], "Bobby", "Teachers")     
+    # Write
+    questions = Array.new
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can Bobby (Teachers) write to #{filename}?", true, ['-','r','w','-','-','w','-','r','-','x'], "Bobby", "Teachers", params)
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can Sarah (Teachers) write to #{filename}?", false, ['-','r','w','-','r','-','x','r','w','x'], "Bobby", "Teachers", params)
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can Alice (Students) write to #{filename}?", true, ['-','r','w','-','r','w','x','r','w','x'], "Mindy", "Students", params)
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can Sarah (Teachers) write to #{filename}?", true, ['-','r','-','-','r','w','x','-','-','-'], "Bobby", "Teachers", params)
+    filename = filenamer.getRandomName
+    questions << Question.new(filename, "Can John (Parents) write to #{filename}?", false, ['-','r','w','-','-','-','-','r','w','x'], "Bobby", "Teachers", params)
+    part.randomizeQuestions(2, questions, rand)
     
+    # Execute
+    questions = Array.new
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Alice (Students) execute #{filename}?", false, ['-','r','w','-','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    questions << Question.new(filename, "Can Bobby (Teachers) execute #{filename}?", true, ['-','-','-','x','-','w','x','r','-','x'], "Bobby", "Teachers", params)
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Alice (Students) execute #{filename}?", false, ['-','r','w','x','r','w','-','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    questions << Question.new(filename, "Can Sarah (Teachers) execute #{filename}?", false, ['-','r','w','-','r','-','x','-','w','x'], "Sarah", "Teachers", params)
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Alice (Students) execute #{filename}?", false, ['r','w','-','x','r','w','x','r','w','-'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
-    filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can Bobby (Teachers) execute #{filename}?", true, ['r','w','-','x','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    questions << Question.new(filename, "Can Alice (Students) execute #{filename}?", true, ['-','r','w','-','r','w','x','r','w','-'], "Mindy", "Students", params)
     filename = "script.sh"
-    part.qdb.add(Question.new(filename, "Can Bobby (Teachers) execute #{filename}?", true, ['r','w','-','x','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
+    questions << Question.new(filename, "Can Sarah (Teachers) execute the shell script #{filename}?", false, ['-','r','w','x','-','w','x','r','w','x'], "Bobby", "Teachers", params)
     filename = filenamer.getRandomName
-    part.qdb.add(Question.new(filename, "Can John (Parents) execute #{filename}?", false, ['r','w','-','x','r','w','x','r','w','x'], "Alice", "Students", part.qdb.isChecked?(filename, params)))
-
-    @parts << part    
-
-
+    questions << Question.new(filename, "Can John (Parents) execute #{filename}?", false, ['-','r','w','x','-','-','x','r','w','x'], "Bobby", "Teachers", params)
+    part.randomizeQuestions(2, questions, rand)
+    
+    # Directory Listing
+    questions = Array.new
+    filename = "Pictures"
+    questions << Question.new(filename, "Can Bobby (Teachers) list the contents of the current directory #{filename} using 'ls'?", true, ['d','r','-','-','r','w','x','r','w','x'], "Bobby", "Teachers", params)
+    filename = "Videos"
+    questions << Question.new(filename, "Can Mindy (Students) list the contents of the current directory #{filename} using 'ls'?", false, ['d','-','-','x','r','w','x','-','w','x'], "Sarah", "Teachers", params)
+    filename = "Previous Exams"
+    questions << Question.new(filename, "Can Alice (Students) list the contents of the current directory #{filename} using 'ls -l'?", false, ['d','r','-','-','r','w','x','r','-','x'], "Alice", "Students", params)
+    filename = "Tools"
+    questions << Question.new(filename, "Can Alice (Students) list the contents of the current directory #{filename} using 'ls -l'?", true, ['d','r','-','-','r','-','x','r','-','x'], "Mindy", "Students", params)
+    filename = "Java for newbies"
+    questions << Question.new(filename, "Can Bobby (Teachers) list the contents of the current directory #{filename} using 'ls -l'?", true, ['d','r','-','-','r','-','x','r','-','x'], "John", "Parents", params)
+    part.randomizeQuestions(2, questions, rand)    
+    
+    part.qdb.questions.sort! { |a,b| a.name.downcase <=> b.name.downcase }
+    @parts << part
+    
+    
+    # Del 2
+    part = Linux.new(rand, "Part 2 - Create / Move / Remove")
+    @parts << part
+        
+    
     # Del 3
-    part = Linux.new(rand, "Part 3 - Move / Remove / Create")
-    @parts << part
-    
-    # Del 4
-    part = Linux.new(rand, "Part 4 - Access")
-    @parts << part
-    
-    # Del 5
-    part = Linux.new(rand, "Part 5 - Sticky Bits")
+    part = Linux.new(rand, "Part 3 - Sticky Bits")
     @parts << part
 
-    # Del 6
-    part = Linux.new(rand, "Part 6 - Listing Directories")
-    @parts << part
 
     @total = 0
     @totalCorrect = 0
@@ -74,6 +90,5 @@ class LinuxController < ApplicationController
       @total += linux.qdb.questions.length
       @totalCorrect += linux.qdb.nbrCorrect?
     end    
-    
   end
 end
