@@ -1,5 +1,5 @@
 <p>
-  <%= form_tag(:action => "index") do %>
+  <%= form_tag(:action => "create", :un => @username) do %>
     <% @parts.each do |linux| %>
       <h1><%= linux.name %></h1>
       $ ls -la<br>

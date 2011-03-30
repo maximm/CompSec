@@ -4,7 +4,8 @@ class LinuxController < ApplicationController
   end
   
   def create
-    rand = Random.new("username".hash)
+    @username = params[:un]
+    rand = Random.new(@username.hash)
     namer = Filenames.new(rand)
     @parts = Array.new
     student1 = namer.getRandomUserName("Students") #Alice
@@ -12,7 +13,6 @@ class LinuxController < ApplicationController
     teacher1 = namer.getRandomUserName("Teachers") #Bobby
     teacher2 = namer.getRandomUserName("Teachers") #Sarah
     parent1 = namer.getRandomUserName("Parents") #John
-    parent2 = namer.getRandomUserName("Parents")
     
     # Del 1
     part = Linux.new(rand, "Part 1 - Read / Write / Execute / Listing Directories")
@@ -88,28 +88,28 @@ class LinuxController < ApplicationController
         
     # Create
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{student1.to_s} create a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{student1.to_s} create a file inside #{filename}?", true, ['d','-','w','x','-','-','x','r','w','x'], student1, params)
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} create a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{student2.to_s} create a file inside #{filename}?", false, ['d','r','w','x','r','w','x','r','-','x'], teacher1, params)
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} create a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{teacher1.to_s} create a file inside #{filename}?", true, ['d','r','w','x','-','-','-','r','-','x'], teacher1, params)
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} create a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{teacher2.to_s} create a file inside #{filename}?", false, ['d','-','w','x','-','w','x','r','-','x'], student2, params)
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} create a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{parent1.to_s} create a file inside #{filename}?", true, ['d','-','w','-','r','-','x','r','w','x'], student2, params)
     part.randomizeQuestions(2, questions, rand)
         
     # Remove
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} delete a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{teacher1.to_s} delete a file inside #{filename}?", false, ['d','r','-','-','-','w','x','-','w','x'], teacher1, params)
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} delete a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{teacher2.to_s} delete a file inside #{filename}?", true, ['d','r','-','-','-','w','x','r','w','x'], teacher1, params)
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} delete a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{student1.to_s} delete a file inside #{filename}?", false, ['d','r','w','-','r','w','x','r','-','x'], parent1, params)
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} delete a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{parent1.to_s} delete a file inside #{filename}?", true, ['d','r','w','x','-','-','x','-','-','x'], parent1, params)
     filename = namer.getRandomDirectoryName
-    questions << Question.new(filename, "Can #{teacher1.to_s} delete a file inside #{filename}?", true, ['d','r','w','x','r','w','x','r','w','x'], teacher1, params)
+    questions << Question.new(filename, "Can #{parent1.to_s} delete a file inside #{filename}?", false, ['d','r','w','x','r','w','x','r','-','x'], teacher1, params)
     part.randomizeQuestions(2, questions, rand)  
 
     part.qdb.questions.sort! { |a,b| a.name.downcase <=> b.name.downcase }
