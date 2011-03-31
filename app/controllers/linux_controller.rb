@@ -4,8 +4,25 @@ class LinuxController < ApplicationController
   end
   
   def create
-    @username = params[:un]
-    rand = Random.new(@username.hash)
+    @username = params[:un]['un']
+    @try = 1
+
+
+    # Database stuff
+    r = Random.new
+    if Linuxtry.find_by_username(@username).nil? then
+      Linuxtry.new(:username => @username, :trynbr => 1, :seed => r.rand(9999999999)).save
+    elsif Linuxtry.find_by_username(@username).trynbr >=5 then
+      Linuxtry.find_by_username(@username).destroy
+      Linuxtry.new(:username => @username, :trynbr => 1, :seed => r.rand(9999999999)).save
+    else
+      user = Linuxtry.find_by_username(@username)
+      user.update_attributes(:trynbr => user.trynbr+1)
+    end
+    
+    @user = Linuxtry.find_by_username(@username)
+    
+    rand = Random.new(@user.seed)
     namer = Filenames.new(rand)
     @parts = Array.new
     student1 = namer.getRandomUserName("Students") #Alice

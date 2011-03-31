@@ -1,5 +1,6 @@
 <p>
-  <%= form_tag(:action => "create", :un => @username) do %>
+  <%= form_tag(:action => "create") do %>
+    <%= hidden_field_tag('un[un]', @username) %>
     <% @parts.each do |linux| %>
       <h1><%= linux.name %></h1>
       $ ls -la<br>
@@ -59,6 +60,9 @@
   <% end %>
   
   <p>
+    <b>Status</b><br>
+    Username: <%= @user.username %><br>
+    Try <%= @user.trynbr %> out of 5 until reset<br>
     <%= @totalCorrect %> of <%= @total %> correct
   </p>
 </p>

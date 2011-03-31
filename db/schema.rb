@@ -10,9 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110130161740) do
+ActiveRecord::Schema.define(:version => 20110331125606) do
 
   create_table "filehandlers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "linuxtries", :force => true do |t|
+    t.string   "username"
+    t.integer  "trynbr"
+    t.integer  "seed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
