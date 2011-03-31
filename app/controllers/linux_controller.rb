@@ -22,6 +22,7 @@ class LinuxController < ApplicationController
     
     @user = Linuxtry.find_by_username(@username)
     
+    # Generate Questions 
     rand = Random.new(@user.seed)
     namer = Filenames.new(rand)
     @parts = Array.new
