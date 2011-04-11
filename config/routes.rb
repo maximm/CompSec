@@ -3,17 +3,18 @@ Uploader::Application.routes.draw do
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
-
+  resources :diffiehellman
   resources :linux
   match '/users' => 'upload#index'
   match '/supersecretusercontroller' => 'users#index'
   resources :users
   match 'student/help' => 'student#help'
+
   root :to => 'upload#index'
-  #root :to => 'general#index'
+
   resources :upload
-  
   resources :student
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

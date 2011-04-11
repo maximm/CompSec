@@ -1,6 +1,5 @@
 class LinuxController < ApplicationController
   def index
-    #@linux = Linux.new(params)
   end
   
   def create
@@ -141,13 +140,13 @@ class LinuxController < ApplicationController
     questions = Array.new
     
     filename = namer.getRandomName
-    questions << Question.new(filename, "Can #{teacher1.to_s} delete #{filename}?", true, ['-','-','-','x','-','-','x','r','-','t'], teacher2, params)
+    questions << Question.new(filename, "Can #{teacher1.to_s} delete #{filename}?", true, ['-','-','-','x','-','-','x','r','-','x'], teacher2, params)
     filename = namer.getRandomName
-    questions << Question.new(filename, "Can #{student1.to_s} delete #{filename}?", false, ['-','r','-','x','r','-','-','r','-','t'], parent1, params)
+    questions << Question.new(filename, "Can #{student1.to_s} delete #{filename}?", false, ['-','r','-','x','r','-','-','r','-','-'], parent1, params)
     filename = namer.getRandomName
-    questions << Question.new(filename, "Can #{student2.to_s} delete #{filename}?", true, ['-','r','-','x','-','w','x','r','-','t'], student2, params)
+    questions << Question.new(filename, "Can #{student2.to_s} delete #{filename}?", true, ['-','r','-','x','-','w','x','r','-','x'], student2, params)
     filename = namer.getRandomName
-    questions << Question.new(filename, "Can #{parent1.to_s} rename #{filename}?", false, ['-','r','-','x','r','-','x','r','-','t'], teacher2, params)
+    questions << Question.new(filename, "Can #{parent1.to_s} rename #{filename}?", false, ['-','r','-','x','r','-','x','r','-','x'], teacher2, params)
     filename = namer.getRandomName
     questions << Question.new(filename, "Can #{teacher2.to_s} rename #{filename}?", false, ['-','-','-','x','-','w','x','-','-','-'], student2, params)
     filename = namer.getRandomName
