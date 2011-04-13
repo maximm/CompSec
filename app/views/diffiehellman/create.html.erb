@@ -1,5 +1,57 @@
-<%= @keyA %><br>
-<%= @keyB %><br><br>
+ <%= form_tag(:action => "create") do %>
+<h1>Diffie Hellman</h1>
 
-<%= @correctKeyA %><br>
-<%= @correctKeyB %>
+<h2>Part 1 - Intercepting vital information</h2>
+<p style="width:600px">
+  After some clever hacking of the local router you are now in control of communications for the whole network at the workplace you have been
+  infilitrating for the last two months. Knowing that secret information will be passed on between party A - Alice, and party B - Bob; you've intercepted
+  the first part of the Diffie-Hellman key exchange, namely the open exchange of <b>Prime P</b> and <b>Generator G</b> and find the following:
+</p>
+<p>
+  <b>Prime P</b><br>
+  <%= text_area(:post, :title, :value => @primeP, :style => "width:400px") %>
+  <br><br>
+  
+  <b>Generator G</b><br>
+  <%= text_field(:post, :title, :value => @generatorG, :style => "width:400px") %>  
+</p>
+
+<hr>
+
+<h2>Part 2 - Intercepting the key exchange</h2>
+<p style="width:600px">
+  Knowing that Alice will now try to create a shared secret with Bob you intercept a message from Alice. You immediately see that it is the part
+  of the key exchange where Alice sends her part to Bob.
+</p>
+  <b>Message from Alice</b><br>
+  <%= text_area(:post, :title, :value => @keyPartAlice, :style => "width:400px") %>
+
+<p style="width:600px">
+  Likewize the next message sent is the one from Bob to Alice with the same puropose - to establish that shared secret.
+</p>
+  <b>Message from Bob</b><br>
+  <%= text_area(:post, :title, :value => @keyPartBob, :style => "width:400px") %>
+    
+<hr>
+
+<h2>Part 3 - Creating keys</h2>
+<p style="width:600px">
+  The final step is to establish your keys, so that you unknowingly to Alice and Bob can read and alter messages without them ever knowing. 
+  Muhaha. Evil. So very evil. But first you have to choose a secret key for yourself! 
+</p>
+  <b>Your secret key</b><br>
+  <%= text_area(:post, :title, :style => "width:400px") %>
+
+<p style="width:600px">
+  And finally, create your shared secrets between yourself and your targets. Confirm that you have correctly calculated them by answering the following
+  questions 
+</p>
+  <b>What shared key would you use to send a message to Alice?</b><br>
+  <%= text_area(:post, :title, :style => "width:400px") %>
+
+  <b>What shared key would you use to read a message from Alice?</b><br>
+  <%= text_area(:post, :title, :style => "width:400px") %>
+  
+  <br><br>
+  <%= submit_tag("Submit") %>
+<% end %>

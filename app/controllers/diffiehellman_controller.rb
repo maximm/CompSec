@@ -1,25 +1,18 @@
 class DiffiehellmanController < ApplicationController
   def index
-    @hello = "Hello my dear friend"
-  end
+ end
   
   def create
-    @keyA = params[:a]["key"]
-    @keyB = params[:b]["key"]
-    
-    bigA = 8657546431234234234234342524565263243432143245112378123891238912983712381972319823719823751123781238912389129837123819723198237198237
-    bigB = 1965467574231123123451243123423423424234265615112378123891238912983712381972319823719823751123781238912389129837123819723198237198237
-    
-    g = 5
-    x = 51123781238912389129837123819723198237198237511237812389123891298371238197231982371982375112378123891238912983712381972319823719823751123781238912389129837123819723198237198237
-    p = 239872319371292131231231231233234534534534532453453453245345
-    
+    @username = params[:un]['un']
     modder = Modmath.new
-    # def pow(base, power, mod)
+    r = Random.new(@username.hash)
+    @primeP = r.rand(100000000000000) * 2**1024
+    @generatorG = [2, 5, 11][r.rand(3)]
     
-    #hint: key = A^x mod p = 8^5 mod 23
-    @correctKeyA = modder.pow(bigA,x,p)
-    #hint: key = B^x mod p = 19^5 mod 23
-    @correctKeyB = modder.pow(bigB,x,p)
+    @keyAlice = r.rand(100000000000000) * 2**2048
+    @keyBob = r.rand(100000000000000) * 2**2048
+    
+    @keyPartAlice = modder.pow(@generatorG, @keyAlice, @primeP)
+    @keyPartBob = modder.pow(@generatorG, @keyBob, @primeP)
   end
 end

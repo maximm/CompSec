@@ -1,17 +1,19 @@
 <h1>Diffie Hellman</h1>
-<p>
-  <%= form_tag(:action => "create") do %>
-    A has sent you the key A = g^a mod p = 5^a mod 23 = 8<br>
-    B has sent you the key B = g^b mod p = 5^b mod 23 = 19<br>
-    Your key is x = 5<br><br>
-    Which key do you share with A? (hint: key = A^x mod p = 8^5 mod 23)<br>
-    <%= text_field(:b, "key")%><br>
-    <br>
-    Which key do you share with B? (hint: key = B^x mod p = 19^5 mod 23)<br>
-    <%= text_field(:a, "key")%>
-    
-    
-    <br><br>
-    <%= submit_tag("Submit") %>
-  <% end %>
+<h2>Introduction</h2>
+
+<p style="width:400px">
+  The purpose of the Diffie-Hellman key exchange is to establish a shared secret between two parties for use in encrypted communications.
+  Without proper authentication for example provided by digital signatures it is possible to not just eavesdrop on the communication, but also alter it.<br><br>
+  This is made possible by the Man-in-the-Middle attack where an attacker interferes with the the Diffie-Hellman key exchange in a way
+  that establishes two secrets. One between the first party and the attacker and one between the attacker and the second attacker, making sure that
+  the first party still belives to be in direct communication with the second party and vice versa.
 </p>
+<hr>
+
+<p>
+  <%= form_tag(:action => "index") do %>
+    <b>STIL Identity</b><br>
+    <%= text_field(:un, "un") %><br>
+    <%= submit_tag("Submit") %><br>
+  <% end %>
+</p> 
