@@ -3,7 +3,6 @@ class DiffiehellmanController < ApplicationController
   end
   
   def create
-    
     @username = params[:un]['un']
     modder = Modmath.new
     r = Random.new(@username.hash)
@@ -18,24 +17,47 @@ class DiffiehellmanController < ApplicationController
     
     @keyPartAlice = modder.pow(@generatorG, keyAlice, @primeP)
     @keyPartBob = modder.pow(@generatorG, keyBob, @primeP)
-
-    if !params[:key].nil? then
-      @suggestedKeyAlice = Integer(params[:key]['alice'])
-      @suggestedKeyBob = Integer(params[:key]['bob'])
-    end
     
-    if !params[:key].nil? && !params[:key]['mimkey'].nil? then
-      @mimkey = Integer(params[:key]['mimkey'])
-      @correctKeyAlice = @suggestedKeyAlice == modder.pow(@keyPartAlice, @mimkey, @primeP)
-      @correctKeyBob = @suggestedKeyBob == modder.pow(@keyPartBob, @mimkey, @primeP)
-      
-      if @correctKeyAlice && @correctKeyBob then
-        render :action => "finished"
+    
+    begin
+      if !params[:key].nil? then
+        @suggestedKeyAlice = Integer(params[:key]['alice'])
+        @suggestedKeyBob = Integer(params[:key]['bob'])
       end
+      
+      if !params[:key].nil? && !params[:key]['mimkey'].nil? then
+        @mimkey = Integer(params[:key]['mimkey'])
+        @correctKeyAlice = @suggestedKeyAlice == modder.pow(@keyPartAlice, @mimkey, @primeP)
+        @correctKeyBob = @suggestedKeyBob == modder.pow(@keyPartBob, @mimkey, @primeP)
+        
+        if @correctKeyAlice && @correctKeyBob then
+          render :action => "finished"
+        end
+      end
+    rescue Exception => e    
+      @error = "One or more fields were either blank or had an incorrectly formatted number in it"
     end
   end
   
   def finished
-    
+  end
+  
+  def calculator
+    modder = Modmath.new
+    begin
+      @x = Integer(params[:data]['x'])
+      @y = Integer(params[:data]['y'])
+      @z = Integer(params[:data]['z'])
+      @answer = modder.pow(@x, @y, @z)
+    rescue
+      @error = "Error: One of the fields had an incorrect value"
+    end
+            
+  end
+end
+
+class String
+  def is_integer?
+    self.to_i.to_s == self
   end
 end

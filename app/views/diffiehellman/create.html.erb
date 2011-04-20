@@ -1,7 +1,8 @@
 <%= form_tag(:action => "create") do %>
  <%= hidden_field_tag('un[un]', @username) %>
+  [<%= link_to "Calculator", :action => "calculator"%>]
   <h1>Diffie Hellman</h1>
-  
+  <%= @error %>
   <h2>Part 1 - Intercepting vital information</h2>
   <p style="width:600px">
     After some clever hacking of the local router you are now in control of communications for the whole network at the workplace you have been
@@ -34,26 +35,28 @@
       
   <hr>
   
-  <h2>Part 3 - Creating keys</h2>
+  <h2>Part 3 - Creating Two Shared Secrets</h2>
   <p style="width:600px">
-    The final step is to establish your keys, so that you unknowingly to Alice and Bob can read and alter messages without them ever knowing. 
-    Muhaha. Evil. So very evil. But first you have to choose a secret key for yourself! 
+    The final step is to establish your two shared secrets, so that you unknowingly to Alice and Bob can read and alter messages without them ever knowing. 
+    Muhaha. Evil. So very evil. But first you have to choose a private value for yourself! 
   </p>
-    <b>Your secret key</b><br>
+    <b>Your private value</b><br>
     <%= text_area(:key, "mimkey", :value => @mimkey, :style => "width:400px;height:130px") %>
   
   <p style="width:600px">
     And finally, create your shared secrets between yourself and your targets. Confirm that you have correctly calculated them by answering the following
     questions 
   </p>
-    <b>Which shared key would you use to send a message to Alice?</b><br>
+    <b>Which shared secret would you use to send a message to Alice?</b><br>
     <%= text_area(:key, "alice", :value =>@suggestedKeyAlice, :style => "width:400px;height:130px") %>
   
     <br><br>
     
-    <b>Which shared key would you use to read a message from Alice?</b><br>
+    <b>Which shared secret would you use to read a message from Alice?</b><br>
     <%= text_area(:key, "bob", :value => @suggestedKeyBob, :style => "width:400px;height:130px") %>
     
     <br><br>
     <%= submit_tag("Submit") %>
 <% end %>
+
+
