@@ -17,6 +17,8 @@ Uploader::Application.routes.draw do
 
   resources :upload
   resources :student
+  
+  resources :winsec
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

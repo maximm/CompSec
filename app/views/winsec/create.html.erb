@@ -1,0 +1,32 @@
+<% @files.each do |file| %>
+  <h2>File: <%= file.filename %><br></h2>
+  <b>DACL contains <%= file.dacl.length %> entries<br></b>
+  
+  <table>
+    <tr>
+      <td>
+        <table>
+          <tr><td><b>ACE Description</b></td></tr>
+          <tr><td>Type:</td></tr>
+          <tr><td>ObjectType:</td></tr>
+          <tr><td>InheritedObjectType:</td></tr>
+          <tr><td>Access rights</td></tr>
+          <tr><td>Principal</td></tr>
+        </table>
+      </td>
+      <% file.dacl.each do |ace| %>
+        <td>
+          <table>
+            <tr><td> <b>ACE <%= ace.nbr %></b></td></tr>
+            <tr><td><%= ace.type %></td></tr>    
+            <tr><td><%= ace.objecttype %></td></tr>
+            <tr><td><%= ace.inheritedobjecttype %></td></tr>
+            <tr><td><%= ace.accessrights %></td></tr>
+            <tr><td><%= ace.principal %></td></tr>
+          </table>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+<% end %>
+
