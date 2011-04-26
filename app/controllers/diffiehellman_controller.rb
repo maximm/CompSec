@@ -6,14 +6,11 @@ class DiffiehellmanController < ApplicationController
     @username = params[:un]['un']
     modder = Modmath.new
     r = Random.new(@username.hash)
-    @primeP = r.rand(100000000000000) * 2**1024
-    if @primeP%2 == 0 then
-      @primeP += 1
-    end
-    @generatorG = [2, 5, 11][r.rand(3)]
+    @primeP = 179769313486231590770839156793787453197860296048756011706444423684197180216158519368947833795864925541502180565485980503646440548199239100050792877003355816639229553136239076508735759914822574862575007425302077447712589550957937778424442426617334727629299387668709205606050270810842907692932019128194467627007
+    @generatorG = 2
     
-    keyAlice = r.rand(100000000000000) * 2**2048
-    keyBob = r.rand(100000000000000) * 2**2048
+    keyAlice = r.rand(10000000000000000000) * (2**800)-1
+    keyBob = r.rand(10000000000000000000) * (2**800)-1
     
     @keyPartAlice = modder.pow(@generatorG, keyAlice, @primeP)
     @keyPartBob = modder.pow(@generatorG, keyBob, @primeP)
