@@ -1,23 +1,33 @@
 <%= form_tag(:action => "calculator") do %>
  <%= hidden_field_tag('un[un]', @username) %>
   <h1>x^y mod z Calculator</h1>
-  <p>
-    <b>x</b><br>
-    <%= text_area(:data, "x", :value => @x, :style => "width:400px;height:130px") %>
-    
-    <br><br>
-    
-    <b>y</b><br>
-    <%= text_area(:data, "y", :value => @y, :style => "width:400px;height:130px") %>
-    
-    <br><br>
-    
-    <b>z</b><br>
-      <%= text_area(:data, "z", :value => @z, :style => "width:400px;height:130px") %>
-  </p>
-    <%= submit_tag("Submit") %>
-    
-    <h2>Answer</h2>
-    <%= @answer %>
-    <%= @error %>
+  <table>
+    <tr>
+      <td>
+        <b>x</b><br>
+        <%= text_area(:data, "x", :value => @x, :style => "width:400px;height:130px") %>
+      </td>
+      <td>
+        <b>y</b><br>
+        <%= text_area(:data, "y", :value => @y, :style => "width:400px;height:130px") %>
+      </td>
+      <td>
+        <b>z</b><br>
+        <%= text_area(:data, "z", :value => @z, :style => "width:400px;height:130px") %>
+      </td>
+     </tr> 
+     <tr>
+        <td>
+          <%= submit_tag("Submit") %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h2>Answer</h2>
+          <%= text_area(:data, "-", :value => @answer, :style => "width:400px;height:130px") %>
+          <br>
+          <%= @error %>                
+        </td>
+      </tr>
+    </table>
 <% end %>

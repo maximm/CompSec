@@ -52,11 +52,14 @@
   
     <br><br>
     
-    <b>Which shared secret would you use to read a message from Alice?</b><br>
+    <b>Which shared secret would you use to read a message from Bob?</b><br>
     <%= text_area(:key, "bob", :value => @suggestedKeyBob, :style => "width:400px;height:130px") %>
     
     <br><br>
     <%= submit_tag("Submit") %>
 <% end %>
+<br>
+<%= @correctKeyAlice.to_s %><br>
+<%= @correctKeyBob.to_s %>
 
 
