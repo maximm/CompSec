@@ -1,0 +1,30 @@
+<h1>Bell-LaPadula</h1>
+
+<table>
+  <tr>
+    <td></td>
+    <% @bpmatrix.objects.each do |object| %>
+      <td><%= object %></td>
+    <% end %>
+  </tr>
+  <% @bpmatrix.subjects.each do |subject| %>
+    <tr>
+      <td>
+        <%= subject %>
+      </td>
+      <% i = 0%>
+      <% @bpmatrix.matrix.each do |rights| %>
+        <td>
+          <%= rights[i] %>
+        </td>
+      <% i += 1%>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<ul>
+  <% @curracc.accesses.each do |access| %>
+    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
+  <% end %>
+</ul>
