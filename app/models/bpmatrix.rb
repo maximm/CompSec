@@ -150,7 +150,7 @@ class Belllapadula
           clok = false
         end
       end
-      if access.object.seclev.level > access.subject.seclev.level && (access.action == "r" || access.action == "w") || !clok
+      if (access.action == "r" || access.action == "w") && (access.object.seclev.level > access.subject.seclev.level || !clok)
         notAllowed << access
       end
     end
@@ -160,16 +160,40 @@ class Belllapadula
   def starPropertyOK?
     notAllowed = Array.new
     @bpaccesses.accesses.each do |access|
-      clok = true
-      access.object.classifications.each do |classification|
-        if !access.subject.classifications.include?(classification) then
-          clok = false
+      appendNbr = 0
+      access.subject.classifications.each do |classification|
+        if access.object.classifications.include?(classification) then
+          appendNbr += 1
         end
       end
-      if access.object.seclev.level > access.subject.seclev.level && (access.action == "r" || access.action == "w") || !clok
+      appendOK = appendNbr == access.subject.classifications
+      
+      if access.action == "a" && access.object.seclev.level < access.subject.seclevcurr.level && !appendOK
+        notAllowed << access
+      elsif access.action == "w" && access.subject.classifications != access.object.classifications 
         notAllowed << access
       end
     end
     return notAllowed
   end  
+  
+  def starPropertySimpleOK?
+    notAllowed = Array.new
+    @bpaccesses.accesses.each do |access|
+      appendNbr = 0
+      access.subject.classifications.each do |classification|
+        if access.object.classifications.include?(classification) then
+          appendNbr += 1
+        end
+      end
+      appendOK = appendNbr == access.subject.classifications.length
+      
+      if access.action == "a" && (access.object.seclev.level < access.subject.seclevcurr.level || !appendOK)
+        notAllowed << access
+      elsif access.action == "w" && access.subject.classifications != access.object.classifications 
+        notAllowed << access
+      end
+    end
+    return notAllowed
+  end   
 end
