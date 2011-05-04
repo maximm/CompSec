@@ -50,3 +50,11 @@ fo: <%= @bpmatrix.fo %>
     <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
   <% end %>
 </ul>  
+
+<h3>*-property</h3>
+  <%= @bp.starPropertyOK?.length == 0 %>
+<ul>
+  <% @bp.starPropertyOK?.each do |access| %>
+    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
+  <% end %>
+</ul>  

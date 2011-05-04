@@ -1,24 +1,17 @@
 class Bpmatrix
   attr_accessor :subjects, :objects, :matrix
   def initialize
-    rand = Random.new("hi".hash)
-    #Subjects
     @subjects = Array.new
-    @subjects << Bpuser.new("Alice", ["A", "B"], "private", "private")
-    @subjects << Bpuser.new("Bob", ["B"], "private", "public")
-    
-    #Objects
     @objects = Array.new
-    @objects << Bpfile.new("file_a", ["A"], "private")
-    @objects << Bpfile.new("file_b", ["B"], "public")
-    
-    # Accessmatris
-    rights = ["r", "w", "e", "a", "-"]
-    @matrix = Hash.new
-    self.addAccesses("Alice", "file_a", ["r", "e"])
-    self.addAccesses("Alice", "file_b", ["r"])
-    self.addAccesses("Bob", "file_b", ["r", "w"])
-    self.addAccesses("Eve", "file_c", ["a", "r"])
+    @matrix = Hash.new    
+  end
+  
+  def addSubject(subject)
+    @subjects << subject
+  end
+  
+  def addObject(object)
+    @objects << object
   end
 
 
@@ -69,9 +62,10 @@ class Bpaccesses
   attr_accessor :accesses
   def initialize
     @accesses = Array.new
-    @accesses << Access.new("Alice", "file_a", "r")
-    @accesses << Access.new("Bob", "file_b", "w")
-    @accesses << Access.new("Eve", "file_c", "a")
+  end
+  
+  def addAccess(access)
+    @accesses << access
   end
 end
 
@@ -84,7 +78,7 @@ class Access
   end
 end
 
-class Bpuser
+class BpSubject
   attr_accessor :name, :classifications, :seclev, :seclevcurr
 
   def initialize(name, classifications, seclev, seclevcurr)
@@ -99,7 +93,7 @@ class Bpuser
   end
 end
 
-class Bpfile
+class BpObject
   attr_accessor :name, :classifications, :seclev
   
   def initialize(name, classifications, seclev)
@@ -110,6 +104,23 @@ class Bpfile
   
   def to_s
     @name
+  end
+end
+
+class Securitylevel
+  attr_accessor :level
+  def initialize(level)
+    @level = level
+  end
+  
+  def to_s
+    if level == 0 then
+      return "public"
+    elsif level == 1 then
+      return "private"
+    else
+      return "???"
+    end
   end
 end
 
@@ -133,11 +144,32 @@ class Belllapadula
   def ssPropertyOK?
     notAllowed = Array.new
     @bpaccesses.accesses.each do |access|
-      if @bpmatrix.allowedAccess?(access.subject, access.object, access.action) == false
+      clok = true
+      access.object.classifications.each do |classification|
+        if !access.subject.classifications.include?(classification) then
+          clok = false
+        end
+      end
+      if access.object.seclev.level > access.subject.seclev.level && (access.action == "r" || access.action == "w") || !clok
+        notAllowed << access
+      end
+    end
+    return notAllowed
+  end
+  
+  def starPropertyOK?
+    notAllowed = Array.new
+    @bpaccesses.accesses.each do |access|
+      clok = true
+      access.object.classifications.each do |classification|
+        if !access.subject.classifications.include?(classification) then
+          clok = false
+        end
+      end
+      if access.object.seclev.level > access.subject.seclev.level && (access.action == "r" || access.action == "w") || !clok
         notAllowed << access
       end
     end
     return notAllowed
   end  
-  
 end
