@@ -160,6 +160,26 @@ class Belllapadula
   def starPropertyOK?
     notAllowed = Array.new
     @bpaccesses.accesses.each do |access|
+      added = false
+            
+      # Check for other accessess
+      otherAccesses = Array.new
+      @bpaccesses.accesses.each do |accessOther|
+        if access.subject.name == accessOther.subject.name && accessOther != access then
+          otherAccesses << accessOther
+        end
+      end
+      
+      # Subject has more than one access
+      if otherAccesses.length > 0 && (access.action == "r" || access.action == "w") then
+        otherAccesses.each do |accessOther|
+          if (accessOther.action == "w" || accessOther.action == "a") && access.object.seclev.level > accessOther.object.seclev.level && !added then
+            notAllowed << access
+            added = true
+          end 
+        end
+      end
+      
       appendNbr = 0
       access.subject.classifications.each do |classification|
         if access.object.classifications.include?(classification) then
@@ -168,10 +188,12 @@ class Belllapadula
       end
       appendOK = appendNbr == access.subject.classifications
       
-      if access.action == "a" && access.object.seclev.level < access.subject.seclevcurr.level && !appendOK
+      if access.action == "a" && access.object.seclev.level < access.subject.seclevcurr.level && !appendOK && !added
         notAllowed << access
-      elsif access.action == "w" && access.subject.classifications != access.object.classifications 
+        added = true
+      elsif access.action == "w" && access.subject.classifications != access.object.classifications && !added 
         notAllowed << access
+        added = true
       end
     end
     return notAllowed
@@ -195,5 +217,43 @@ class Belllapadula
       end
     end
     return notAllowed
+  end
+
+  # ds-property
+  def ds(access)
+    return !self.dsPropertyOK?.include?(access) 
+  end
+  
+  # ss-property
+  def ss(access)
+    return !self.ssPropertyOK?.include?(access) 
+  end
+  
+  # Complete *-property
+  def cs(access)
+    return !self.starPropertyOK?.include?(access) 
+  end    
+  
+  # Incomplete *-property
+  def is(access)
+    return !self.starPropertySimpleOK?.include?(access) 
+  end
+  
+  def isSecure?
+    return self.starPropertyOK?.length == 0 && self.ssPropertyOK?.length == 0 && self.dsPropertyOK?.length == 0
   end   
+end
+
+class BpQuestion
+  attr_accessor :access, :question, :alternatives, :answers
+  def initialize(access, question, alternatives, answers)
+    @access = access
+    @question = question
+    @alternatives = alternatives
+    @answers = answers
+  end
+  
+  def checkAnswer(answers)
+    return @answers == answers
+  end
 end
