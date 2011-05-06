@@ -67,6 +67,10 @@ class Bpaccesses
   def addAccess(access)
     @accesses << access
   end
+  
+  def getRandomAccess(rand)
+    return @accesses[rand.rand(accesses.length)]
+  end
 end
 
 class Access
@@ -75,6 +79,10 @@ class Access
     @subject = subject
     @object = object
     @action = action
+  end
+  
+  def to_s
+    return "(#{subject}, #{object}, #{action})"
   end
 end
 
@@ -259,29 +267,6 @@ class BpQuestionYesNo
       return ""
     else
       return params[name][name] == 'true'
-    end
-  end 
-end
-
-class BpQuestion
-  attr_accessor :name, :access, :question, :alternatives, :answers, :checked
-  def initialize(name, access, question, alternatives, answers)
-    @name = name
-    @access = access
-    @question = question
-    @alternatives = alternatives
-    @answers = answers
-  end
-  
-  def checkAnswer(answers)
-    return @answers == answers
-  end
-  
-  def isChecked?(name, params)
-    if params[name].nil? then
-      return ""
-    else
-      return params[name][filename] == 'true'
     end
   end 
 end

@@ -25,7 +25,7 @@
 <h2>Current Access Set b</h2>
 <ul>
   <% @curracc.accesses.each do |access| %>
-    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
+    <li><%= access %>)</li>
   <% end %>
 </ul>
 
@@ -34,39 +34,42 @@ fs: <%= @bpmatrix.fs %> <br />
 fc: <%= @bpmatrix.fc %><br />
 fo: <%= @bpmatrix.fo %>
 
-<h2>Propertys<h2>
-  <h3>ds-property</h3>
-  <%= @bp.dsPropertyOK?.length == 0 %>
-<ul>
-  <% @bp.dsPropertyOK?.each do |access| %>
-    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
-  <% end %>
-</ul>
+<br><br>
 
-<h3>ss-property</h3>
-  <%= @bp.ssPropertyOK?.length == 0 %>
-<ul>
-  <% @bp.ssPropertyOK?.each do |access| %>
-    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
-  <% end %>
-</ul>  
-
-<h3>*-property SIMPLE</h3>
-  <%= @bp.starPropertySimpleOK?.length == 0 %>
-<ul>
-  <% @bp.starPropertySimpleOK?.each do |access| %>
-    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
-  <% end %>
-</ul>  
-
-<h3>*-property</h3>
-  <%= @bp.starPropertyOK?.length == 0 %>
-<ul>
-  <% @bp.starPropertyOK?.each do |access| %>
-    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
-  <% end %>
-</ul>
-
+<% if @showproperties then %>
+  <h2>Propertys<h2>
+    <h3>ds-property</h3>
+    <%= @bp.dsPropertyOK?.length == 0 %>
+  <ul>
+    <% @bp.dsPropertyOK?.each do |access| %>
+      <li><%= access %></li>
+    <% end %>
+  </ul>
+  
+  <h3>ss-property</h3>
+    <%= @bp.ssPropertyOK?.length == 0 %>
+  <ul>
+    <% @bp.ssPropertyOK?.each do |access| %>
+      <li><%= access %></li>
+    <% end %>
+  </ul>  
+  
+  <h3>*-property SIMPLE</h3>
+    <%= @bp.starPropertySimpleOK?.length == 0 %>
+  <ul>
+    <% @bp.starPropertySimpleOK?.each do |access| %>
+      <li><%= access %></li>
+    <% end %>
+  </ul>  
+  
+  <h3>*-property</h3>
+    <%= @bp.starPropertyOK?.length == 0 %>
+  <ul>
+    <% @bp.starPropertyOK?.each do |access| %>
+      <li><%= access %></li>
+    <% end %>
+  </ul>
+<% end %>
 <hr>
 
 <%= form_tag(:action => "create") do %>
