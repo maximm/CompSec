@@ -1,37 +1,43 @@
-class Bpsituation1
-  attr_accessor :bp, :questions
+class Bpsituation2
+  attr_accessor :bp, :questions, :rand
   def initialize(username, params)
     @bpmatrix = Bpmatrix.new
-    rand = Random.new(username.hash)
+    @rand = Random.new(username.hash)
+    namer = Filenames.new(@rand)
     
     # Subjects
-    alice = BpSubject.new("Alice", ["A", "B"], Securitylevel.new(1), Securitylevel.new(0))
-    david = BpSubject.new("David", ["B"], Securitylevel.new(1), Securitylevel.new(1))
-    erika = BpSubject.new("Erika", ["A", "B"], Securitylevel.new(1), Securitylevel.new(0))
-    @bpmatrix.addSubject(alice)
-    @bpmatrix.addSubject(david)
-    @bpmatrix.addSubject(erika)
+    nbrSubjects = 3 + rand.rand(4)
+    nbrSubjects.times do 
+      @bpmatrix.addSubject(BpSubject.new(namer.getRandomUserName, self.randClass, self.randLevel, self.randLevel))
+    end
     
     # Objects
-    file_a = BpObject.new("file_a", ["A", "B"], Securitylevel.new(1))
-    file_b = BpObject.new("file_b", ["A", "B"], Securitylevel.new(0))
-    file_c = BpObject.new("file_c", ["A", "B"], Securitylevel.new(0))
-    @bpmatrix.addObject(file_a)
-    @bpmatrix.addObject(file_b)
-    @bpmatrix.addObject(file_c)
+    nbrObjects = 3 + rand.rand(4)
+    nbrObjects.times do
+      @bpmatrix.addObject(BpObject.new(namer.getRandomName, self.randClass, self.randLevel))
+    end    
                                     
     # Accessmatrix
-    @bpmatrix.addAccesses(alice, file_a, ["r", "e"])
-    @bpmatrix.addAccesses(david, file_b, ["r"])
-    @bpmatrix.addAccesses(david, file_b, ["r", "w"])
-    @bpmatrix.addAccesses(erika, file_a, ["a", "r"])
+    @bpmatrix.subjects.each do |s|
+      @bpmatrix.objects.each do |o|
+        actions = self.randActions
+        if actions.length > 0 then
+          @bpmatrix.addAccesses(s, o, actions)
+        end
+      end
+    end
     
     # Currect Accesses
     @curracc = Bpaccesses.new
-    @curracc.addAccess(Access.new(alice, file_a, "a"))
-    @curracc.addAccess(Access.new(alice, file_b, "r"))
-    #@curracc.addAccess(Access.new(david, file_b, "w"))
-    #@curracc.addAccess(Access.new(erika, file_c, "w"))
+    @bpmatrix.subjects.each do |s|
+      @bpmatrix.objects.each do |o|
+        coin = rand.rand(5)
+        if coin == 0 then
+          @curracc.addAccess(Access.new(s, o, self.randAction))
+        end
+      end
+    end    
+    
     @bp = Belllapadula.new(@bpmatrix, @curracc)
     
     # Questions
@@ -50,5 +56,32 @@ class Bpsituation1
     @questions << BpQuestionYesNo.new(rand.rand.to_s, "Does the access #{access} conform to the incomplete *-property?", @bp.isOK?(access), params)
     access = @curracc.getRandomAccess(rand)
     @questions << BpQuestionYesNo.new(rand.rand.to_s, "Does the access #{access} conform to the *-property?", @bp.csOK?(access), params)
+  end
+  
+  def randLevel
+    level = rand.rand(2)
+    return Securitylevel.new(level)
+  end
+  
+  def randClass
+    classifications = [["A"], ["B"], ["A", "B"]]
+    return classifications[rand.rand(classifications.length)]
+  end
+
+  def randAction
+    actions = ["a", "r", "w", "e"]
+    return actions[rand.rand(actions.length)]
+  end
+  
+  def randActions
+    actions = ["a", "r", "w", "e"]
+    nbr = rand.rand(actions.length)
+    myactions = Array.new
+    nbr.times do 
+      action = actions[rand.rand(actions.length)]
+      actions = actions - [action]
+      myactions << action
+    end
+    return myactions
   end
 end

@@ -69,7 +69,7 @@ class Bpaccesses
   end
   
   def getRandomAccess(rand)
-    return @accesses[rand.rand(accesses.length)]
+    return @accesses[rand.rand(@accesses.length)]
   end
 end
 

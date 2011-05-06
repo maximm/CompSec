@@ -20,6 +20,12 @@ class Filenames
     return Queryuser.new(name, group)    
   end
   
+  def getRandomUserName
+    name = @usernames[@rand.rand(@usernames.length)]
+    @usernames = @usernames - [name]
+    return name  
+  end  
+  
   def getRandomDirectoryName
     name = @directorynames[@rand.rand(@directorynames.length)]
     @directorynames = @directorynames - [name]
