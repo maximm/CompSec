@@ -1,7 +1,12 @@
 class BelllapadulaController < ApplicationController
   def index
-    @bpmatrix = Bpmatrix.new
     
+  end
+  
+  def create
+    @username = params[:un]['un']    
+    @bpmatrix = Bpmatrix.new
+    rand = Random.new(@username.hash)
     
     
     # Subjects
@@ -36,8 +41,21 @@ class BelllapadulaController < ApplicationController
     
     # Questions
     @questions = Array.new
+    @questions << BpQuestionYesNo.new(rand.rand.to_s, "Is the state considered secure?", @bp.isSecure?, params)
+    @questions << BpQuestionYesNo.new(rand.rand.to_s, "Does the state conform to the ds-property?", @bp.dsPropertyOK?.length == 0, params)
+    @questions << BpQuestionYesNo.new(rand.rand.to_s, "Does the state conform to the ss-property?", @bp.ssPropertyOK?.length == 0, params)
+    @questions << BpQuestionYesNo.new(rand.rand.to_s, "Does the state conform to the incomplete *-property?", @bp.starPropertySimpleOK?.length == 0, params)
+    @questions << BpQuestionYesNo.new(rand.rand.to_s, "Does the state conform to the *-property?", @bp.starPropertyOK?.length == 0, params)
     @curracc.accesses.each do |access|
       @questions << BpQuestion.new(access, "Does this access violate any of the following properties?", ["ds-property", "ss-property", "incomplete *-property", "*-property"], [@bp.ds(access), @bp.ss(access), @bp.is(access), @bp.cs(access)] )
     end
+    
+    @total = @questions.length
+    @totalCorrect = 0
+    @questions.each do |question|
+      if question.correct then
+        @totalCorrect += 1
+      end
+    end  
   end
 end

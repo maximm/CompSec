@@ -1,0 +1,93 @@
+<h1>Bell-LaPadula</h1>
+<h2>Access Control Matrix M</h2>
+<table>
+  <tr>
+    <td></td>
+    <% @bpmatrix.objects.each do |object| %>
+      <td><b><%= object.name %></b></td>
+    <% end %>
+  </tr>
+  <% @bpmatrix.subjects.each do |subject| %>
+    <tr>
+      <td>
+        <b><%= subject.name %></b>
+      </td>
+      
+      <% @bpmatrix.objects.each do |object| %>
+        <td>
+          <%= @bpmatrix.allowedAccesses(subject, object) %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Current Access Set b</h2>
+<ul>
+  <% @curracc.accesses.each do |access| %>
+    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
+  <% end %>
+</ul>
+
+<h2>Functions f = (fs,fc,fo)</h2>
+fs: <%= @bpmatrix.fs %> <br />
+fc: <%= @bpmatrix.fc %><br />
+fo: <%= @bpmatrix.fo %>
+
+<h2>Propertys<h2>
+  <h3>ds-property</h3>
+  <%= @bp.dsPropertyOK?.length == 0 %>
+<ul>
+  <% @bp.dsPropertyOK?.each do |access| %>
+    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
+  <% end %>
+</ul>
+
+<h3>ss-property</h3>
+  <%= @bp.ssPropertyOK?.length == 0 %>
+<ul>
+  <% @bp.ssPropertyOK?.each do |access| %>
+    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
+  <% end %>
+</ul>  
+
+<h3>*-property SIMPLE</h3>
+  <%= @bp.starPropertySimpleOK?.length == 0 %>
+<ul>
+  <% @bp.starPropertySimpleOK?.each do |access| %>
+    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
+  <% end %>
+</ul>  
+
+<h3>*-property</h3>
+  <%= @bp.starPropertyOK?.length == 0 %>
+<ul>
+  <% @bp.starPropertyOK?.each do |access| %>
+    <li>(<%= access.subject %>, <%= access.object %>, <%= access.action %>)</li>
+  <% end %>
+</ul>
+
+<hr>
+
+<%= form_tag(:action => "create") do %>
+  <%= hidden_field_tag('un[un]', @username) %>
+
+  <h2>Questions</h2>
+  <% @questions.each do |item| %>
+    <p>
+      <%= item.question %><br>
+      <%= radio_button(item.name, item.name, true, :checked => item.checked) %>
+      <%= label_tag(item.name, "Yes")%>
+      <%= radio_button(item.name, item.name, false, :checked => !item.checked) %>
+      <%= label_tag(item.name, "No")%>
+    </p>
+  <% end %>
+  <%= submit_tag("Submit") %><br>  
+<% end %>
+
+  <p>
+    <b>Status</b><br>
+    STIL Identity: <%= @username %><br>
+    <%= @totalCorrect %> of <%= @total %> correct
+  </p>
+

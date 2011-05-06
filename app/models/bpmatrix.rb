@@ -220,22 +220,22 @@ class Belllapadula
   end
 
   # ds-property
-  def ds(access)
+  def dsOK?(access)
     return !self.dsPropertyOK?.include?(access) 
   end
   
   # ss-property
-  def ss(access)
+  def ssOK?(access)
     return !self.ssPropertyOK?.include?(access) 
   end
   
   # Complete *-property
-  def cs(access)
+  def csOK?(access)
     return !self.starPropertyOK?.include?(access) 
   end    
   
   # Incomplete *-property
-  def is(access)
+  def isOK?(access)
     return !self.starPropertySimpleOK?.include?(access) 
   end
   
@@ -244,9 +244,29 @@ class Belllapadula
   end   
 end
 
+class BpQuestionYesNo
+  attr_accessor :name, :question, :answer, :checked, :correct
+  def initialize(name, question, answer, params)
+    @name = name
+    @question = question
+    @answer = answer
+    @checked = self.isChecked?(name, params) 
+    @correct = @checked == answer
+  end
+  
+  def isChecked?(name, params)
+    if params[name].nil? then
+      return ""
+    else
+      return params[name][name] == 'true'
+    end
+  end 
+end
+
 class BpQuestion
-  attr_accessor :access, :question, :alternatives, :answers
-  def initialize(access, question, alternatives, answers)
+  attr_accessor :name, :access, :question, :alternatives, :answers, :checked
+  def initialize(name, access, question, alternatives, answers)
+    @name = name
     @access = access
     @question = question
     @alternatives = alternatives
@@ -256,4 +276,12 @@ class BpQuestion
   def checkAnswer(answers)
     return @answers == answers
   end
+  
+  def isChecked?(name, params)
+    if params[name].nil? then
+      return ""
+    else
+      return params[name][filename] == 'true'
+    end
+  end 
 end
