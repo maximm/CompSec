@@ -39,7 +39,6 @@ fo: <%= @bpmatrix.fo %>
 <% if @showproperties then %>
   <h2>Propertys<h2>
     <h3>ds-property</h3>
-    <%= @bp.bp.dsPropertyOK?.length == 0 %>
   <ul>
     <% @bp.bp.dsPropertyOK?.each do |access| %>
       <li><%= access %></li>
@@ -47,7 +46,6 @@ fo: <%= @bpmatrix.fo %>
   </ul>
   
   <h3>ss-property</h3>
-    <%= @bp.bp.ssPropertyOK?.length == 0 %>
   <ul>
     <% @bp.bp.ssPropertyOK?.each do |access| %>
       <li><%= access %></li>
@@ -55,7 +53,6 @@ fo: <%= @bpmatrix.fo %>
   </ul>  
   
   <h3>*-property</h3>
-    <%= @bp.bp.starPropertyOK?.length == 0 %>
   <ul>
     <% @bp.bp.starPropertyOK?.each do |access| %>
       <li><%= access %></li>

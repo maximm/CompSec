@@ -222,19 +222,19 @@ class Belllapadula
       end
       
       appendNbr = 0
-      access.subject.classifications.each do |classification|
-        if access.object.classifications.include?(classification) then
+      access.object.classifications.each do |classification|
+        if access.subject.classifications.include?(classification) then
           appendNbr += 1
         end
       end
-      appendOK = appendNbr == access.subject.classifications
+      appendOK = appendNbr == access.subject.classifications.length
       
-      if access.action == "a" && (access.object.seclev.level < access.subject.seclevcurr.level || !appendOK) && !added
+      if access.action == "a" && !appendOK then
         notAllowed << access
-        added = true
-      elsif access.action == "w" && (access.subject.classifications != access.object.classifications || access.object.seclev.level < access.subject.seclevcurr.level) && !added 
+      elsif access.action == "a" && access.object.seclev.level < access.subject.seclevcurr.level
         notAllowed << access
-        added = true
+      elsif access.action == "w" && (access.subject.classifications != access.object.classifications || access.object.seclev.level < access.subject.seclevcurr.level) 
+        notAllowed << access
       end
     end
     return notAllowed
