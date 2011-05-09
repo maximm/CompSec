@@ -5,8 +5,8 @@ class BelllapadulaController < ApplicationController
   
   def create
     @username = params[:un]['un']    
-    @showproperties = false
-    @bp = Bpsituation2.new(@username, params)
+    @showproperties = true
+    @bp = Bpsituation1.new(Random.new(@username.hash), params)
     @questions = @bp.questions
     
     @bpmatrix = @bp.bp.bpmatrix

@@ -1,8 +1,8 @@
 class Bpsituation2
   attr_accessor :bp, :questions, :rand
-  def initialize(username, params)
+  def initialize(rand, params)
     @bpmatrix = Bpmatrix.new
-    @rand = Random.new(username.hash)
+    @rand = rand
     namer = Filenames.new(@rand)
     
     # Subjects

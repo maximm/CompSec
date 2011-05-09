@@ -138,11 +138,33 @@ class Belllapadula
     @bpmatrix = bpmatrix
     @bpaccesses = bpaccesses
   end
+
+  def dsPropertyOK(subject)
+    accesses = self.dsPropertyOK?
+    notAllowed = Array.new
+    accesses.each do |access|
+      if access.subject == subject then
+        notAllowed << access
+      end
+    end
+    return notAllowed
+  end
   
   def dsPropertyOK?
     notAllowed = Array.new
     @bpaccesses.accesses.each do |access|
       if @bpmatrix.allowedAccess?(access.subject, access.object, access.action) == false
+        notAllowed << access
+      end
+    end
+    return notAllowed
+  end
+
+  def ssPropertyOK(subject)
+    accesses = self.ssPropertyOK?
+    notAllowed = Array.new
+    accesses.each do |access|
+      if access.subject == subject then
         notAllowed << access
       end
     end
@@ -159,6 +181,17 @@ class Belllapadula
         end
       end
       if (access.action == "r" || access.action == "w") && (access.object.seclev.level > access.subject.seclev.level || !clok)
+        notAllowed << access
+      end
+    end
+    return notAllowed
+  end
+  
+  def starPropertyOK(subject)
+    accesses = self.starPropertyOK?
+    notAllowed = Array.new
+    accesses.each do |access|
+      if access.subject == subject then
         notAllowed << access
       end
     end
@@ -196,36 +229,16 @@ class Belllapadula
       end
       appendOK = appendNbr == access.subject.classifications
       
-      if access.action == "a" && access.object.seclev.level < access.subject.seclevcurr.level && !appendOK && !added
+      if access.action == "a" && (access.object.seclev.level < access.subject.seclevcurr.level || !appendOK) && !added
         notAllowed << access
         added = true
-      elsif access.action == "w" && access.subject.classifications != access.object.classifications && !added 
+      elsif access.action == "w" && (access.subject.classifications != access.object.classifications || access.object.seclev.level < access.subject.seclevcurr.level) && !added 
         notAllowed << access
         added = true
       end
     end
     return notAllowed
   end  
-  
-  def starPropertySimpleOK?
-    notAllowed = Array.new
-    @bpaccesses.accesses.each do |access|
-      appendNbr = 0
-      access.subject.classifications.each do |classification|
-        if access.object.classifications.include?(classification) then
-          appendNbr += 1
-        end
-      end
-      appendOK = appendNbr == access.subject.classifications.length
-      
-      if access.action == "a" && (access.object.seclev.level < access.subject.seclevcurr.level || !appendOK)
-        notAllowed << access
-      elsif access.action == "w" && access.subject.classifications != access.object.classifications 
-        notAllowed << access
-      end
-    end
-    return notAllowed
-  end
 
   # ds-property
   def dsOK?(access)

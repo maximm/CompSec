@@ -1,6 +1,6 @@
 <h1>Bell-LaPadula</h1>
 <h2>Access Control Matrix M</h2>
-<table>
+<table border=1>
   <tr>
     <td></td>
     <% @bpmatrix.objects.each do |object| %>
@@ -39,33 +39,25 @@ fo: <%= @bpmatrix.fo %>
 <% if @showproperties then %>
   <h2>Propertys<h2>
     <h3>ds-property</h3>
-    <%= @bp.dsPropertyOK?.length == 0 %>
+    <%= @bp.bp.dsPropertyOK?.length == 0 %>
   <ul>
-    <% @bp.dsPropertyOK?.each do |access| %>
+    <% @bp.bp.dsPropertyOK?.each do |access| %>
       <li><%= access %></li>
     <% end %>
   </ul>
   
   <h3>ss-property</h3>
-    <%= @bp.ssPropertyOK?.length == 0 %>
+    <%= @bp.bp.ssPropertyOK?.length == 0 %>
   <ul>
-    <% @bp.ssPropertyOK?.each do |access| %>
-      <li><%= access %></li>
-    <% end %>
-  </ul>  
-  
-  <h3>*-property SIMPLE</h3>
-    <%= @bp.starPropertySimpleOK?.length == 0 %>
-  <ul>
-    <% @bp.starPropertySimpleOK?.each do |access| %>
+    <% @bp.bp.ssPropertyOK?.each do |access| %>
       <li><%= access %></li>
     <% end %>
   </ul>  
   
   <h3>*-property</h3>
-    <%= @bp.starPropertyOK?.length == 0 %>
+    <%= @bp.bp.starPropertyOK?.length == 0 %>
   <ul>
-    <% @bp.starPropertyOK?.each do |access| %>
+    <% @bp.bp.starPropertyOK?.each do |access| %>
       <li><%= access %></li>
     <% end %>
   </ul>

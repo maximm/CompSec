@@ -31,4 +31,15 @@ class Filenames
     @directorynames = @directorynames - [name]
     return name
   end
+  
+  def getRandomNumbers(amount, maxNbr)
+    takeNbrs = Array.new
+    nbrs = Array.new(maxNbr) {|x| x+1}
+    amount.times do
+      nbr = nbrs[@rand.rand(nbrs.length)]
+      nbrs = nbrs - [nbr]      
+      takeNbrs << nbr
+    end
+    return takeNbrs
+  end
 end
