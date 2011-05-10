@@ -48,8 +48,11 @@
 
 <br>
 <p>
-  Total: <%= @total %><br>
-  Correct: <%= @correct %><br>
+  <p>
+    <b>Status</b><br>
+    STIL Identity: <%= @username %><br>
+    <%= @correct %> of <%= @total %> correct
+  </p>
   <% if @correct == @total then %>
   CONGRATS ALL CORRECT
   <% end %>
