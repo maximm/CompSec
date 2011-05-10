@@ -1,21 +1,25 @@
 <h1>Bell-LaPadula</h1>
+
+<%= form_tag(:action => "create") do %>
+  <%= hidden_field_tag('un[un]', @username) %>
+<% @bps.each do |bp| %>
 <h2>Access Control Matrix M</h2>
 <table border=1>
   <tr>
     <td></td>
-    <% @bpmatrix.objects.each do |object| %>
+    <% bp.bpmatrix.objects.each do |object| %>
       <td><b><%= object.name %></b></td>
     <% end %>
   </tr>
-  <% @bpmatrix.subjects.each do |subject| %>
+  <% bp.bpmatrix.subjects.each do |subject| %>
     <tr>
       <td>
         <b><%= subject.name %></b>
       </td>
       
-      <% @bpmatrix.objects.each do |object| %>
+      <% bp.bpmatrix.objects.each do |object| %>
         <td>
-          <%= @bpmatrix.allowedAccesses(subject, object) %>
+          <%= bp.bpmatrix.allowedAccesses(subject, object) %>
         </td>
       <% end %>
     </tr>
@@ -24,15 +28,15 @@
 
 <h2>Current Access Set b</h2>
 <ul>
-  <% @curracc.accesses.each do |access| %>
+  <% bp.curracc.accesses.each do |access| %>
     <li><%= access %>)</li>
   <% end %>
 </ul>
 
 <h2>Functions f = (fs,fc,fo)</h2>
-fs: <%= @bpmatrix.fs %> <br />
-fc: <%= @bpmatrix.fc %><br />
-fo: <%= @bpmatrix.fo %>
+fs: <%= bp.bpmatrix.fs %> <br />
+fc: <%= bp.bpmatrix.fc %><br />
+fo: <%= bp.bpmatrix.fo %>
 
 <br><br>
 
@@ -40,32 +44,30 @@ fo: <%= @bpmatrix.fo %>
   <h2>Propertys<h2>
     <h3>ds-property</h3>
   <ul>
-    <% @bp.bp.dsPropertyOK?.each do |access| %>
+    <% bp.bp.dsPropertyOK?.each do |access| %>
       <li><%= access %></li>
     <% end %>
   </ul>
   
   <h3>ss-property</h3>
   <ul>
-    <% @bp.bp.ssPropertyOK?.each do |access| %>
+    <% bp.bp.ssPropertyOK?.each do |access| %>
       <li><%= access %></li>
     <% end %>
   </ul>  
   
   <h3>*-property</h3>
   <ul>
-    <% @bp.bp.starPropertyOK?.each do |access| %>
+    <% bp.bp.starPropertyOK?.each do |access| %>
       <li><%= access %></li>
     <% end %>
   </ul>
 <% end %>
 <hr>
 
-<%= form_tag(:action => "create") do %>
-  <%= hidden_field_tag('un[un]', @username) %>
 
   <h2>Questions</h2>
-  <% @questions.each do |item| %>
+  <% bp.questions.each do |item| %>
     <p>
       <%= item.question %><br>
       <%= radio_button(item.name, item.name, true, :checked => item.checked) %>
@@ -73,6 +75,8 @@ fo: <%= @bpmatrix.fo %>
       <%= radio_button(item.name, item.name, false, :checked => !item.checked) %>
       <%= label_tag(item.name, "No")%>
     </p>
+  <% end %>
+  <hr>
   <% end %>
   <%= submit_tag("Submit") %><br>  
 <% end %>

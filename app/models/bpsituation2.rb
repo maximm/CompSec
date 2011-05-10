@@ -1,5 +1,5 @@
 class Bpsituation2
-  attr_accessor :bp, :questions, :rand
+  attr_accessor :bp, :questions, :bpmatrix, :curracc
   def initialize(rand, params)
     @bpmatrix = Bpmatrix.new
     @rand = rand

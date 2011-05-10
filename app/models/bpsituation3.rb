@@ -1,5 +1,5 @@
 class Bpsituation3
-  attr_accessor :bp, :questions
+  attr_accessor :bp, :questions, :bpmatrix, :curracc
   def initialize(rand, params)
     @bpmatrix = Bpmatrix.new
     @curracc = Bpaccesses.new
@@ -57,10 +57,10 @@ class Bpsituation3
       @curracc.addAccess(Access.new(s[3], o[4], "a"))
 
 
-      # Satisfies *-property
+      # Satisfies *-property. Violates ds-property
       @bpmatrix.addAccesses(s[4], o[1], ["r", "w"])
-      @bpmatrix.addAccesses(s[4], o[2], ["r", "a"])
-      @bpmatrix.addAccesses(s[4], o[3], ["r", "a"])
+      @bpmatrix.addAccesses(s[4], o[2], ["a"])
+      @bpmatrix.addAccesses(s[4], o[3], ["w", "a"])
       @curracc.addAccess(Access.new(s[4], o[1], "w"))
       @curracc.addAccess(Access.new(s[4], o[2], "r"))         
             

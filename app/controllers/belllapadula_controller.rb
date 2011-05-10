@@ -5,18 +5,22 @@ class BelllapadulaController < ApplicationController
   
   def create
     @username = params[:un]['un']    
-    @showproperties = true
-    @bp = Bpsituation3.new(Random.new(@username.hash), params)
-    @questions = @bp.questions
+    @showproperties = false
+    rand = Random.new(@username.hash)
+
+    @bps = Array.new
+    @bps << Bpsituation1.new(rand, params)
+    @bps << Bpsituation3.new(rand, params)
     
-    @bpmatrix = @bp.bp.bpmatrix
-    @curracc = @bp.bp.bpaccesses
-    @total = @questions.length
+    @total = 0
     @totalCorrect = 0
-    @questions.each do |question|
-      if question.correct then
-        @totalCorrect += 1
-      end
-    end  
+    @bps.each do |bp|
+      @total += bp.questions.length
+      bp.questions.each do |question|
+        if question.correct then
+          @totalCorrect += 1
+        end
+      end  
+    end
   end
 end

@@ -6,23 +6,25 @@ class WinsecController < ApplicationController
   def create
     @username = params[:un]['un']
     @files = Array.new
-    @r = Random.new(@username.hash)
+    rand = Random.new(@username.hash)
 
     # File 1    
     file = Winfile.new("readme.txt")
-
-    file.dacl << Ace.new("allow", "Everyone", "Full Control")
     file.dacl << Ace.new("deny", "Alice", "Execute")
-    file.dacl << Ace.new("deny", "Alice", "Read, Write")
+    file.dacl << Ace.new("deny", "Alice", "Write")
     file.dacl << Ace.new("deny", "Bob", "Read")
     file.dacl << Ace.new("deny", "Bob", "Full Control")
-    
-    file.questions << WinQuestion.new("Will Alice be allowed to gain the following permissions: [Execute, Write]?", @r.rand.to_s, true, params)
-    file.questions << WinQuestion.new("Will Bob be allowed to gain the following permissions: [Read]?", @r.rand.to_s, true, params)
-    file.questions << WinQuestion.new("Will Bob be allowed to gain the following permissions: [Full Control]?", @r.rand.to_s, true, params)
+    file.dacl << Ace.new("allow", "Everyone", "Full Control")
 
+            
+    file.questions << WinQuestion.new("Will Alice be allowed to gain the following permissions: [Execute, Write]?", @r.rand.to_s, false, params)
+    file.questions << WinQuestion.new("Will Alice be allowed to gain the following permissions: [Read]?", @r.rand.to_s, true, params)
+    file.questions << WinQuestion.new("Will Eve be allowed to gain the following permissions: [Read]?", @r.rand.to_s, true, params)
+    file.questions << WinQuestion.new("Will Eve be allowed to gain the following permissions: [Read, Write]?", @r.rand.to_s, true, params)
+    file.questions << WinQuestion.new("Will Bob be allowed to gain the following permissions: [Read]?", @r.rand.to_s, false, params)
+    file.questions << WinQuestion.new("Will Bob be allowed to gain the following permissions: [Full Control]?", @r.rand.to_s, false, params)
+    file.questions << WinQuestion.new("Will Bob be allowed to gain the following permissions: [Write]?", @r.rand.to_s, false, params)
     @files << file    
-    
     
     # File 2
     file = Winfile.new("data.exe")
@@ -65,9 +67,7 @@ class WinsecController < ApplicationController
     file.questions << WinQuestion.new("Will Bob (Teachers) be allowed to gain the following permissions: [Read, Execute]?", @r.rand.to_s, false, params)
     file.questions << WinQuestion.new("Will Alice (Students) be allowed to gain the following permissions: [Read]?", @r.rand.to_s, true, params)
     file.questions << WinQuestion.new("Will Alice (Students) be allowed to gain the following permissions: [Read, Execute]?", @r.rand.to_s, false, params)
-
     @files << file    
-
 
     @correct = 0
     @total = 0
@@ -79,7 +79,5 @@ class WinsecController < ApplicationController
         end
       end
     end    
-
-
   end
 end
