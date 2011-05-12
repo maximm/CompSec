@@ -1,11 +1,12 @@
 class Winfile
-  attr_accessor :dacl, :filename, :questions
+  attr_accessor :dacl, :filename, :questions, :tokens
   
   
   def initialize(filename)
     @filename = filename
     @dacl = Array.new
     @questions = Array.new
+    @tokens = Array.new
   end
   
   def randomizeQuestions(nbr, questions, rand)
@@ -35,16 +36,4 @@ class WinQuestion
       return params[filename][filename] == 'true'
     end
   end  
-end
-
-class WinToken
-  attr_accessor :user, :groups, :restrictedsid
-  def initialize(user, group)
-    @user = user
-    @group = group
-  end
-  
-  def to_s
-    @user
-  end
 end

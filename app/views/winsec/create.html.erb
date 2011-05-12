@@ -1,3 +1,4 @@
+<h1>Windows Security</h1>
 <p>
   <%= form_tag(:action => "create") do %>
     <%= hidden_field_tag('un[un]', @username) %>
@@ -5,11 +6,11 @@
         <h2>File: <%= file.filename %><br></h2>
         <b>DACL contains <%= file.dacl.length %> entries<br></b>
         
-        <table>
+        <table border=1>
           <tr>
             <td>
               <table>
-                <tr><td><b>ACE Description</b></td></tr>
+                <tr><td><b>ACE Desc.</b></td></tr>
                 <tr><td>Type:</td></tr>
                 <tr><td>Name:</td></tr>
                 <tr><td>Permission:</td></tr>
@@ -30,6 +31,32 @@
             <% end %>
           </tr>
         </table>
+
+        <table border=1>
+          <tr>
+            <td>
+              <table>
+                <tr><td><b>Token Desc.</b></td></tr>
+                <tr><td>User SID:</td></tr>
+                <tr><td>Group SIDs:</td></tr>
+                <tr><td>Restricted SIDs:</td></tr>
+              </table>
+            </td>
+            <% index = 1
+                file.tokens.each do |token|
+                %>
+              <td>
+                <table>
+                  <tr><td><b>Token <%= index %></b></td></tr>
+                  <tr><td><%= token.user %></td></tr>    
+                  <tr><td><%= token.groups.join(", ") %></td></tr>
+                  <tr><td><%= token.restrictedsid %></td></tr>
+                </table>
+              </td>
+              <% index += 1 %>
+            <% end %>
+          </tr>
+        </table>        
       
         <h2>Questions</h2>
           <% file.questions.each do |item| %>
