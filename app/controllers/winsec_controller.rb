@@ -5,6 +5,7 @@ class WinsecController < ApplicationController
   
   def create
     @username = params[:un]['un']
+    studentfactory = Studentfactory.new
     @files = Array.new
     @r = Random.new(@username.hash)
     questions = Array.new
@@ -185,6 +186,10 @@ class WinsecController < ApplicationController
           @correct += 1
         end
       end
+    end
+    
+    if @correct == @total
+      studentfactory.approveProject4(@username)
     end    
   end
 end

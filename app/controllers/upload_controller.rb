@@ -4,6 +4,7 @@ class UploadController < ApplicationController
   end
   
   def create
+    studentfactory = Studentfactory.new
     if params[:file].nil? then
       redirect_to "/"
     else
@@ -21,8 +22,10 @@ class UploadController < ApplicationController
       
       @approvedText = ""
       if(@approved == true) then
+        studentfactory.approveProject0(name1)
         @receipt = "Your receipt for #{name1} is <b>" + `echo "#{name1}EIT060_2011_P1" | sha1sum | head -c 4` + "</b>. Please save this as a token for finishing Project 1"
         if !name2.empty? then
+          studentfactory.approveProject0(name2)
           @receipt +="<br>Your receipt for #{name2} is <b>" + `echo "#{name2}EIT060_2011_P1" | sha1sum | head -c 4` + "</b>. Please save this as a token for finishing Project 1"
         end
         @approvedText = "<font color=green size=+2>Congratulations! Project 1 approved</font>"

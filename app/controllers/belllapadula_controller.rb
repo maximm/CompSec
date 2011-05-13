@@ -5,6 +5,7 @@ class BelllapadulaController < ApplicationController
   
   def create
     @username = params[:un]['un']    
+    studentfactory = Studentfactory.new
     @showproperties = false
     rand = Random.new(@username.hash)
 
@@ -21,6 +22,10 @@ class BelllapadulaController < ApplicationController
           @totalCorrect += 1
         end
       end  
+    end
+    
+    if @totalCorrect == @total
+      studentfactory.approveProject5(@username)
     end
   end
 end

@@ -4,6 +4,7 @@ class LinuxController < ApplicationController
   
   def create
     @username = params[:un]['un']
+    studentfactory = Studentfactory.new
     @try = 1
 
 
@@ -162,6 +163,10 @@ class LinuxController < ApplicationController
     @parts.each do |linux|
       @total += linux.qdb.questions.length
       @totalCorrect += linux.qdb.nbrCorrect?
-    end    
+    end  
+    
+    if @totalCorrect == @total
+      studentfactory.approveProject2(@username)
+    end 
   end
 end
