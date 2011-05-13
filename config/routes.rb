@@ -10,13 +10,13 @@ Uploader::Application.routes.draw do
   match 'diffiehellman/calculator' => 'diffiehellman#calculator'
   resources :diffiehellman
 
-  
   resources :linux
   match '/users' => 'upload#index'
   match '/supersecretusercontroller' => 'users#index'
   resources :users
   match 'student/help' => 'student#help'
   
+  match '/studentuser/notfound' => 'studentuser#notfound'
   root :to => 'upload#index'
 
   resources :upload

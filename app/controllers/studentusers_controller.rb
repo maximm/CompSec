@@ -9,16 +9,22 @@ class StudentusersController < ApplicationController
       format.xml  { render :xml => @studentusers }
     end
   end
-
+  
   # GET /studentusers/1
   # GET /studentusers/1.xml
   def show
-    @studentuser = Studentuser.find(params[:id])
-
+    @studentuser = Studentuser.find_by_stil(params[:stil])
+    if @studentuser.nil?
+      return
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @studentuser }
     end
+  end
+  
+  def notfound
+    
   end
 
   # GET /studentusers/new

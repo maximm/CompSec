@@ -1,0 +1,14 @@
+[<%= link_to 'Certificate Chains', :controller => "upload", :method => "index" %>]
+[<%= link_to 'Tracker Attack', :controller => "student", :method => "index" %>]
+[<%= link_to 'Linux Access Control', :controller => "linux", :method => "index" %>]
+[<%= link_to 'Diffie-Hellman MITM', :controller => "diffiehellman", :method => "index" %>]
+[<%= link_to 'Windows Access Control', :controller => "winsec", :method => "index" %>]
+[<%= link_to 'Bell-LaPadula', :controller => "belllapadula", :method => "index" %>]
+
+<div style="text-align:right;color:red;vertical-align:top">
+  <%= form_tag("studentusers/show", :method => "get") do %>
+    <b>STIL Identity</b>
+    <%= text_field_tag(:stil, "stil", :style => "width:100px") %>
+    <%= submit_tag("Check Progress") %>
+  <% end %>
+</div>

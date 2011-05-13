@@ -1,16 +1,15 @@
 <h1>Listing studentusers</h1>
 
-<table>
+<table border=1>
   <tr>
     <th>Stil</th>
-    <th>Project0</th>
-    <th>Project1</th>
-    <th>Project2</th>
-    <th>Project3</th>
-    <th>Project4</th>
-    <th>Project5</th>
-    <th></th>
-    <th></th>
+    <th>Certificates</th>
+    <th>Tracker</th>
+    <th>Linux AC</th>
+    <th>DH MITM</th>
+    <th>Windows AC</th>
+    <th>Bell-LaPadula</th>
+    <th>Total</th>
     <th></th>
   </tr>
 
@@ -23,8 +22,7 @@
     <td><%= studentuser.project3 %></td>
     <td><%= studentuser.project4 %></td>
     <td><%= studentuser.project5 %></td>
-    <td><%= link_to 'Show', studentuser %></td>
-    <td><%= link_to 'Edit', edit_studentuser_path(studentuser) %></td>
+    <td><%= studentuser.project0 && studentuser.project1 && studentuser.project2 && studentuser.project3 && studentuser.project4 && studentuser.project5  %></td>
     <td><%= link_to 'Destroy', studentuser, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
