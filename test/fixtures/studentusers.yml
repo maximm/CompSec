@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  stil: MyString
+  project0: false
+  project1: false
+  project2: false
+  project3: false
+  project4: false
+  project5: false
+
+two:
+  stil: MyString
+  project0: false
+  project1: false
+  project2: false
+  project3: false
+  project4: false
+  project5: false

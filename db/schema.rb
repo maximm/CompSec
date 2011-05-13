@@ -10,9 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110331125606) do
+ActiveRecord::Schema.define(:version => 20110513093535) do
 
   create_table "filehandlers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "finishedprojects", :force => true do |t|
+    t.integer  "part"
+    t.string   "stil"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -30,6 +37,18 @@ ActiveRecord::Schema.define(:version => 20110331125606) do
     t.integer  "age"
     t.boolean  "sex"
     t.integer  "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "studentusers", :force => true do |t|
+    t.string   "stil"
+    t.boolean  "project0"
+    t.boolean  "project1"
+    t.boolean  "project2"
+    t.boolean  "project3"
+    t.boolean  "project4"
+    t.boolean  "project5"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

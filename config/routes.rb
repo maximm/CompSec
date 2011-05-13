@@ -1,4 +1,6 @@
 Uploader::Application.routes.draw do
+  resources :studentusers
+
   resources :students
 
   resources :belllapadula
