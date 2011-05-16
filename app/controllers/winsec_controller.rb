@@ -162,12 +162,12 @@ class WinsecController < ApplicationController
     file.dacl << Ace.new("allow", group3.join, "Execute")
         
     questions = Array.new
-    questions << WinQuestion.new("Will #{token1} (Teachers, restricted SID Admins) be allowed to gain the following permissions: [Read, Execute]?", @r.rand.to_s, false, params)
-    questions << WinQuestion.new("Will #{token1} (Teachers, restricted SID Admins) be allowed to gain the following permissions: [Read]?", @r.rand.to_s, true, params)
-    questions << WinQuestion.new("Will #{token2} (Teachers, restricted SID Services) be allowed to gain the following permissions: [Execute]?", @r.rand.to_s, true, params)
-    questions << WinQuestion.new("Will #{token2} (Teachers, restricted SID Services) be allowed to gain the following permissions: [Read]?", @r.rand.to_s, false, params)
-    questions << WinQuestion.new("Will #{token3} (Students, Faculty, restricted SID Trainees) be allowed to gain the following permissions: [Execute]?", @r.rand.to_s, false, params)
-    questions << WinQuestion.new("Will #{token3} (Students, Faculty, restricted SID Trainees) be allowed to gain the following permissions: [Read, Write]?", @r.rand.to_s, false, params)
+    questions << WinQuestion.new("Will #{token1} be allowed to gain the following permissions: [Read, Execute]?", @r.rand.to_s, false, params)
+    questions << WinQuestion.new("Will #{token1} be allowed to gain the following permissions: [Read]?", @r.rand.to_s, true, params)
+    questions << WinQuestion.new("Will #{token2} be allowed to gain the following permissions: [Execute]?", @r.rand.to_s, true, params)
+    questions << WinQuestion.new("Will #{token2} be allowed to gain the following permissions: [Read]?", @r.rand.to_s, false, params)
+    questions << WinQuestion.new("Will #{token3} be allowed to gain the following permissions: [Execute]?", @r.rand.to_s, false, params)
+    questions << WinQuestion.new("Will #{token3} be allowed to gain the following permissions: [Read, Write]?", @r.rand.to_s, false, params)
     file.randomizeQuestions(3, questions, @r)
     @files << file    
 
