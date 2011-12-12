@@ -48,10 +48,10 @@ class StudentController < ApplicationController
     
     # Sex
     if !params[:s].nil? && params[:gender] == "male" then
-      @db.delete_if { |s| s.sex == "Female" }
+      @db.delete_if { |s| s.sex == "Male" }
       @query += " Sex = Female"
     elsif !params[:s].nil? && params[:gender] == "female" then
-      @db.delete_if { |s| s.sex == "Male" }
+      @db.delete_if { |s| s.sex == "Female" }
       @query += " Sex = Male"
     end
     
