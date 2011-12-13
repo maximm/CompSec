@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+require "iconv"
 
 class Filehandler
   attr_accessor :data, :filename, :stil, :approved, :id, :filepath
@@ -8,15 +8,17 @@ class Filehandler
       password = ".EMPTY."
     end
     
-    @id = rand(99999999999)
-    @filepath = "#{RAILS_ROOT}/tmp/myfile_#{@id}"
+    @filepath = "#{RAILS_ROOT}/tmp/compsec_#{rand(99999999999)}"
     Thread.new do
       File.open(filepath, "wb") { |f| f.write(file['File'].read)}
     end
     
-    @filename = file['File'].original_filename   
-    @data = `keytool -list -v -keystore "#{filepath}" -storepass #{password}`
-    #@data = "helloäöå"
+    @filename = file['File'].original_filename
+    output = `keytool -list -v -keystore "#{filepath}" -storepass #{password}`
+    
+    ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+    @data = ic.iconv(output + ' ')[0..-2]
+    
     @stil = stil
     self.cleanup()
   end
@@ -32,7 +34,7 @@ class Filehandler
       return "ERROR: The uploaded file is invalid"
     end
         
-    # Is password is correct
+    # Is the password correct?
     if @data.match("Keystore was tampered with, or password was incorrect") then
       @approved = false
       return "ERROR: The password was incorrect"

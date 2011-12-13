@@ -13,16 +13,16 @@
     
     <h2>Results</h2>
     <p>
-      Query: <b><%= @query %></b><br>
-     <% if @db.size > 3 || @db.size == 500 || @db.size < 500-3 then%>
-       Set size: <b><%= @db.size %></b>
-       <br>
-       Score mean: <b><%= @mean %></b>
-     <% elsif @db.size == 0%>
-      The query returned zero answers
-     <% else %>
-      The query generated too few or too many results
-    <% end %>
+		Query: <b><%= @query %></b><br>
+		<% if @db.size == 0%>
+			The query returned zero answers
+		<% elsif @db.size <= 2 || @db.size >= 498 then %>
+			The query generated too few or too many results
+		<% else %>
+			Set size: <b><%= @db.size %></b>
+			<br>
+			Score mean: <b><%= @mean %></b>
+		<% end %>
     </p>
     
     <h2>Query</h2>
