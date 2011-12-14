@@ -15,7 +15,7 @@ class Filenames
     name = name + @ends[@rand.rand(@ends.length)]
   end
   
-  def getRandomUserName(group)
+  def getRandomUserNameWithGroup(group)
     name = @usernames[@rand.rand(@usernames.length)]
     @usernames = @usernames - [name]
     return Queryuser.new(name, group)    
