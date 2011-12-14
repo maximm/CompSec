@@ -17,26 +17,10 @@ ActiveRecord::Schema.define(:version => 20110513093535) do
     t.datetime "updated_at"
   end
 
-  create_table "finishedprojects", :force => true do |t|
-    t.integer  "part"
-    t.string   "stil"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "linuxtries", :force => true do |t|
     t.string   "username"
     t.integer  "trynbr"
     t.integer  "seed"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "students", :force => true do |t|
-    t.string   "masters"
-    t.integer  "age"
-    t.boolean  "sex"
-    t.integer  "score"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
