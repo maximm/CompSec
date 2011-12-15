@@ -1,7 +1,12 @@
 <p>
   <%= form_tag(:action => "create") do %>
     <%= hidden_field_tag('un[un]', @username) %>
-    <% @parts.each do |linux| %>
+    
+    <% if @totalCorrect == @total %>
+    	<p style="font-:200%; color:green;">Congratulations. All the answers are correct</p>
+    <% end %>
+    
+    <% @questions.parts.each do |linux| %>
       <h1><%= linux.name %></h1>
       $ ls -la<br>
       total <%= linux.length %><br>
@@ -44,6 +49,7 @@
             <%= label_tag(item.name, "Yes")%>
             <%= radio_button(item.name, item.name, false, :checked => !item.checked) %>
             <%= label_tag(item.name, "No")%>
+            <br><%= item.answer%>
           </p>
         <% end %>
           
@@ -62,7 +68,7 @@
   <p>
     <b>Status</b><br>
     STIL Identity: <%= @user.username %><br>
-    <%= @user.trynbr %> out of 5 tries remaining until reset<br>
+    Try #<%= @user.trynbr %><br>
     <%= @totalCorrect %> of <%= @total %> correct
   </p>
 </p>
