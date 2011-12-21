@@ -78,10 +78,14 @@
   <p>
     <b>Status</b><br>
     STIL Identity: <%= @username %><br>
-    <%= @correct %> of <%= @total %> correct
+    <% if (@correct.to_f / @total) > 0.8 then %>
+    	<%= @correct %> of <%= @total %> correct
+	<% else %>
+		Correct answers &lt; 80%
+	<% end %>
   </p>
+
   <% if @correct == @total then %>
-  CONGRATS ALL CORRECT
+  	CONGRATS ALL CORRECT
   <% end %>
-  
 </p>
