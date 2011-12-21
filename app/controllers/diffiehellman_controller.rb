@@ -28,7 +28,7 @@ class DiffiehellmanController < ApplicationController
         @correctKeyAlice = @suggestedKeyAlice == modder.pow(@keyPartAlice, @mimkey, @primeP)
         @correctKeyBob = @suggestedKeyBob == modder.pow(@keyPartBob, @mimkey, @primeP)
         
-        if @correctKeyAlice && @correctKeyBob then
+        if @correctKeyAlice && @correctKeyBob && @mimkey > 1 then
           studentfactory.approveProject3(@username)
           render :action => "finished"
         end
