@@ -5,8 +5,6 @@ Uploader::Application.routes.draw do
 
   resources :belllapadula
 
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
   match 'diffiehellman/calculator' => 'diffiehellman#calculator'
   resources :diffiehellman
 
