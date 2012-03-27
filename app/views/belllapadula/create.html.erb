@@ -84,6 +84,10 @@ fo: <%= bp.bpmatrix.fo %>
   <p>
     <b>Status</b><br>
     STIL Identity: <%= @username %><br>
-    <%= @totalCorrect %> of <%= @total %> correct
+    <% if (@totalCorrect.to_f / @total) > 0.8 then %>
+    	<%= @totalCorrect %> of <%= @total %> correct
+	<% else %>
+		Correct answers &lt; 80%
+	<% end %>
   </p>
 

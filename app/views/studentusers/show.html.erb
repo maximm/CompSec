@@ -1,36 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Stil:</b>
-  <%= @studentuser.stil %>
-</p>
-
-<p>
-  <b>Certificate Chains:</b>
-  <%= @studentuser.project0 %>
-</p>
-
-<p>
-  <b>Tracker Attack:</b>
-  <%= @studentuser.project1 %>
-</p>
-
-<p>
-  <b>Linux Access Control:</b>
-  <%= @studentuser.project2 %>
-</p>
-
-<p>
-  <b>Diffie-Hellman MITM:</b>
-  <%= @studentuser.project3 %>
-</p>
-
-<p>
-  <b>Windows Access Control:</b>
-  <%= @studentuser.project4 %>
-</p>
-
-<p>
-  <b>Bell-LaPadula:</b>
-  <%= @studentuser.project5 %>
-</p>
+<% if @studentuser.nil? then %>
+	En student med detta STIL-ID kunde inte hittas
+<% else %>
+	<p>
+	  <b>Stil:</b>
+	  <%= @studentuser.stil %>
+	</p>
+	
+	<p>
+	  <b>Certificate Chains:</b>
+	  <%= @studentuser.project0 %>
+	</p>
+	
+	<p>
+	  <b>Tracker Attack:</b>
+	  <%= @studentuser.project1 %>
+	</p>
+	
+	<p>
+	  <b>Linux Access Control:</b>
+	  <%= @studentuser.project2 %>
+	</p>
+	
+	<p>
+	  <b>Diffie-Hellman MITM:</b>
+	  <%= @studentuser.project3 %>
+	</p>
+	
+	<p>
+	  <b>Windows Access Control:</b>
+	  <%= @studentuser.project4 %>
+	</p>
+	
+	<p>
+	  <b>Bell-LaPadula:</b>
+	  <%= @studentuser.project5 %>
+	</p>
+<% end %>
